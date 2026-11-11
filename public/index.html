@@ -31,7 +31,8 @@ footer{margin-top:40px;font-size:15px}
 .lane:hover,.lane:focus-visible{background:var(--petal)}
 .lane:hover .horse,.lane:focus-visible .horse{transform:translateX(-28px)}
 .lane::after{content:"";position:absolute;inset-block:0;inset-inline-end:118px;border-inline-start:2px dotted var(--seed-soft);opacity:.55}
-@media (max-width:720px){.lane{grid-template-columns:36px 1fr auto;padding:0 12px;min-height:108px}.lane .no{font-size:28px}.lane .horse{font-size:38px}.lane::after{inset-inline-end:76px}}
+body{-webkit-text-size-adjust:100%}
+@media (max-width:720px){.wrap{padding-inline:16px}.gate{margin-top:28px}.lane{grid-template-columns:36px 1fr auto;padding:0 12px;min-height:108px}.lane .no{font-size:28px}.lane .horse{font-size:38px}.lane::after{inset-inline-end:76px}}
 @media (prefers-reduced-motion:reduce){.lane .horse{transition:none}}
 </style>
 </head>

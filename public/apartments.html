@@ -137,6 +137,57 @@ footer p{margin:0}
 .boards a[aria-current="page"]{background:var(--on-bg);color:var(--bg)}
 .boards a.home{border-color:transparent;padding-inline:4px}
 .admin.top{margin:8px 0 28px}
+
+/* ===== מובייל ===== */
+body{-webkit-text-size-adjust:100%}
+.track{position:relative}
+.gapc{font-weight:800;font-variant-numeric:tabular-nums}
+.gapc.ok{color:var(--leaf)}
+.gapc.m,.gh.m,.ghl{display:none}
+@media (max-width:720px){
+  .wrap{padding-inline:16px}
+  .boards{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-bottom:4px}
+  .boards a{text-align:center;padding:9px 4px}
+  .boards a.home{grid-column:1/-1;justify-self:start;padding:0 0 2px;border:0;font-size:15px}
+  .hero{grid-template-columns:minmax(0,1fr)}
+  .gate input{flex-basis:100%;width:100%;min-width:0;font-size:20px}
+  .gate button{width:100%}
+  #me{margin-top:28px}
+  .card{padding:20px 16px}
+  .me-head h2{overflow-wrap:anywhere}
+  .big .num{font-size:clamp(84px,26vw,120px)}
+  .big .lbl{font-size:19px}
+  .ladder{margin-top:18px}
+  .ladder .post span{display:none}
+  .levels{margin-top:22px;gap:10px}
+  .lvl{padding:12px}
+  .lvl .n{font-size:clamp(34px,11vw,52px)}
+  .stat .n{font-size:52px}
+  .ins{grid-template-columns:32px 1fr;gap:10px;padding:14px}
+  .ins .ic{font-size:26px}
+  .race-head .ctrls{width:100%;flex-direction:column}
+  .seg{display:flex;width:100%}
+  .seg button{flex:1 1 0;padding:11px 6px}
+  .track{max-height:70vh;max-height:70svh}
+  .track .lane,.track .lane.goals,.track .postlabels,.track .postlabels.goals{grid-template-columns:28px repeat(4,minmax(0,1fr));column-gap:6px;row-gap:4px;height:auto;padding:7px 10px}
+  .track .lane .pos{grid-column:1;grid-row:1/span 2;align-self:center;font-size:24px}
+  .track .lane.goals .pos{grid-row:1/span 3}
+  .track .lane .nm{grid-column:2/5;grid-row:1;font-size:16px}
+  .track .lane .val{grid-column:5;grid-row:1;font-size:18px}
+  .track .lane .rail,.track .lane.goals .rail{display:block;grid-column:2/6;grid-row:2;height:30px}
+  .track .lane .gapc{display:block;grid-row:3;font-size:14px;text-align:center}
+  .track .rail .gap{display:none}
+  .track .horse{font-size:24px}
+  .track .lane.leader .horse::after{top:-9px;font-size:13px}
+  .track .postlabels{font-size:12px}
+  .track .postlabels>span:first-child{grid-column:1;grid-row:1}
+  .track .postlabels>span:nth-child(2){grid-column:2/5;grid-row:1}
+  .track .postlabels>span:last-child{grid-column:5;grid-row:1;text-align:left}
+  .track .postlabels .rail{display:none}
+  .track .postlabels .ghl{display:block;grid-column:1;grid-row:2;align-self:end;font-size:11px}
+  .track .postlabels .gh{display:block;grid-row:2;font-size:11px;line-height:1.2;text-align:center}
+  .track .postlabels .ghm{display:none}
+}
 </style>
 </head>
 <body>
@@ -334,14 +385,14 @@ function renderTrack(scrollToYou){
   const posts = L.filter(l=>l.target<=max);
   const pos = v => Math.max(0,Math.min(v,max))/max*100;
   const tr=document.getElementById("track");
-  tr.innerHTML = `<div class="postlabels" aria-hidden="true"><span>#</span><span>\u05e9\u05dd</span><div class="rail">${posts.map(l=>`<span style="right:${pos(l.target)}%">${l.label}</span>`).join("")}</div><span>\u05de\u05db\u05d9\u05e8\u05d5\u05ea</span></div>`+
-  reps.map(r=>`<div class="lane ${r.rank===1?"leader":""} ${r===YOU?"you":""}" ${r===YOU?'id="you"':""}>
+  tr.innerHTML = `<div class="postlabels ${MODE==="goals"?"goals":""}" aria-hidden="true"><span>#</span><span>\u05e9\u05dd</span><div class="rail">${posts.map(l=>`<span style="right:${pos(l.target)}%">${l.label}</span>`).join("")}</div>${MODE==="goals"?`<span class="ghl">\u05d7\u05e1\u05e8</span>`+L.map(l=>`<span class="gh m">\u05dc${l.label.replace("\u05de\u05e7\u05d5\u05dd ","")}<br>${l.target}</span>`).join(""):""}<span>\u05de\u05db\u05d9\u05e8\u05d5\u05ea</span></div>`+
+  reps.map(r=>`<div class="lane ${MODE==="goals"?"goals":""} ${r.rank===1?"leader":""} ${r===YOU?"you":""}" ${r===YOU?'id="you"':""}>
     <span class="pos">${r.rank}</span><span class="nm" title="${r.n}">${r.n}</span>
     <div class="rail">${posts.map(l=>`<i class="post" style="right:${pos(l.target)}%"></i>`).join("")}${MODE==="goals"?posts.map(l=>{const miss=l.target-Math.max(0,r.s);return `<span class="gap ${miss<=0?"ok":""}" style="right:${pos(l.target)}%" title="${l.label}">${miss<=0?"\u2713":miss}</span>`}).join(""):""}<span class="horse" data-to="${pos(r.s)}" role="img" aria-label="${r.n}: ${r.s} \u05de\u05db\u05d9\u05e8\u05d5\u05ea">\ud83d\udc0e</span></div>
-    <span class="val">${r.s}</span></div>`).join("");
+    ${MODE==="goals"?L.map(l=>{const miss=l.target-Math.max(0,r.s);return `<span class="gapc m ${miss<=0?"ok":""}">${miss<=0?"\u2713":miss}</span>`}).join(""):""}<span class="val">${r.s}</span></div>`).join("");
   requestAnimationFrame(()=>requestAnimationFrame(()=>tr.querySelectorAll(".horse").forEach(h=>h.style.insetInlineStart=`calc(${h.dataset.to}% - 26px * ${h.dataset.to/100})`)));
   document.getElementById("legend").textContent = MODE==="goals"
-    ? `\u05e7\u05d5 \u05d4\u05e1\u05d9\u05d5\u05dd \u05d4\u05d5\u05d0 \u05e8\u05e3 \u05d4\u05e6\u05f3\u05de\u05e4\u05d9\u05d5\u05df (${L[L.length-1].target}). \u05d4\u05de\u05e1\u05e4\u05e8 \u05e2\u05dc \u05db\u05dc \u05e7\u05d5 \u05de\u05e0\u05d5\u05e7\u05d3 \u05d4\u05d5\u05d0 \u05db\u05de\u05d4 \u05de\u05db\u05d9\u05e8\u05d5\u05ea \u05d7\u05e1\u05e8\u05d5\u05ea \u05db\u05d3\u05d9 \u05dc\u05d4\u05d2\u05d9\u05e2 \u05dc\u05de\u05e7\u05d5\u05dd \u05d4\u05d6\u05d4, \u05d5\u05be\u2713 \u05de\u05e1\u05de\u05df \u05de\u05e7\u05d5\u05dd \u05e9\u05db\u05d1\u05e8 \u05d4\u05d5\u05e9\u05d2.`
+    ? (matchMedia("(max-width:720px)").matches ? `קו הסיום הוא רף הצ׳מפיון (${L[L.length-1].target}). הקווים המנוקדים הם רפי המקומות, והמספרים מתחת לכל שם הם כמה מכירות חסרות כדי להגיע לכל מקום. ✓ מסמן מקום שכבר הושג.` : `\u05e7\u05d5 \u05d4\u05e1\u05d9\u05d5\u05dd \u05d4\u05d5\u05d0 \u05e8\u05e3 \u05d4\u05e6\u05f3\u05de\u05e4\u05d9\u05d5\u05df (${L[L.length-1].target}). \u05d4\u05de\u05e1\u05e4\u05e8 \u05e2\u05dc \u05db\u05dc \u05e7\u05d5 \u05de\u05e0\u05d5\u05e7\u05d3 \u05d4\u05d5\u05d0 \u05db\u05de\u05d4 \u05de\u05db\u05d9\u05e8\u05d5\u05ea \u05d7\u05e1\u05e8\u05d5\u05ea \u05db\u05d3\u05d9 \u05dc\u05d4\u05d2\u05d9\u05e2 \u05dc\u05de\u05e7\u05d5\u05dd \u05d4\u05d6\u05d4, \u05d5\u05be\u2713 \u05de\u05e1\u05de\u05df \u05de\u05e7\u05d5\u05dd \u05e9\u05db\u05d1\u05e8 \u05d4\u05d5\u05e9\u05d2.`)
     : `\u05e7\u05d5 \u05d4\u05e1\u05d9\u05d5\u05dd \u05d4\u05d5\u05d0 \u05d4\u05de\u05d5\u05d1\u05d9\u05dc/\u05d4, ${LEADER.n}, \u05e2\u05dd ${LEADER.s} \u05de\u05db\u05d9\u05e8\u05d5\u05ea. \ud83d\udc51 \u05de\u05e1\u05de\u05df \u05d0\u05ea \u05d4\u05de\u05e7\u05d5\u05dd \u05d4\u05e8\u05d0\u05e9\u05d5\u05df.`;
   if(scrollToYou){ const y=document.getElementById("you"); if(y) tr.scrollTop = y.offsetTop - tr.clientHeight/2; }
 }
@@ -526,6 +577,7 @@ const BOARD = "apartments";
     if(!r.ok){ let m=""; try{ m=(await r.json()).error; }catch(e){} throw Object.assign(new Error(m||"error"),{code:m||("HTTP "+r.status)}); }
   }});
   const a = $("admin"); a.classList.add("top");
+  if(matchMedia("(hover:none)").matches){ $("dropName").textContent="לוחצים כאן כדי לבחור את קובץ האקסל"; const sm=$("drop").querySelector("small"); if(sm) sm.remove(); }
   a.querySelector("p").textContent = "גוררים לכאן את קובץ האקסל של היום, בודקים את התאריך ולוחצים על עדכון. הנתונים נשמרים בשרת, וכל מי שנכנס לאתר רואה אותם מיד.";
   document.querySelector(".hero").before(a);
 })();

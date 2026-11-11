@@ -25,7 +25,7 @@ h1{font-size:clamp(44px,8vw,84px)}
 .card{margin-top:36px;background:var(--surface);border:3px solid var(--seed);border-radius:6px;padding:28px}
 form{display:flex;gap:12px;flex-wrap:wrap}
 form label{width:100%;font-weight:800;font-size:20px}
-input{flex:1 1 260px;font:inherit;font-size:22px;padding:14px 18px;border:3px solid var(--seed);border-radius:4px;background:#fff;color:var(--seed)}
+input{flex:1 1 260px;min-width:0;font:inherit;font-size:22px;padding:14px 18px;border:3px solid var(--seed);border-radius:4px;background:#fff;color:var(--seed)}
 button{font:inherit;font-weight:800;font-size:20px;padding:14px 28px;border:3px solid var(--seed);border-radius:4px;background:var(--seed);color:var(--sun);cursor:pointer}
 button:disabled{opacity:.5;cursor:wait}
 #msg{margin-top:14px;font-weight:600;color:var(--rust)}
@@ -34,7 +34,8 @@ button:disabled{opacity:.5;cursor:wait}
 .pick a:hover{background:var(--sun)}
 .out{margin-top:20px;background:transparent;color:var(--seed);font-size:16px;padding:8px 16px;border-width:2px}
 [hidden]{display:none!important}
-@media (max-width:720px){.pick{grid-template-columns:1fr}}
+body{-webkit-text-size-adjust:100%}
+@media (max-width:720px){.wrap{padding-inline:16px}.card{padding:20px 16px;margin-top:28px}.pick{grid-template-columns:1fr}.pick a{padding:20px 12px}form button{width:100%}}
 </style>
 </head>
 <body>
