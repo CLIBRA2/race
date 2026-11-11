@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>המירוץ לסוף השנה: עדכון נתונים</title>
+<style>
+:root{
+  --sun:#FFC20E; --petal:#FFE07A; --surface:#FFF5CF; --seed:#3A2412; --seed-soft:#6B4A2C;
+  --leaf:#3F6B2A; --leaf-soft:#DCE8B8; --rust:#B5461F; --line:rgba(58,36,18,.3);
+  color-scheme:light; box-sizing:border-box;
+  padding-top:env(safe-area-inset-top,0px); padding-bottom:env(safe-area-inset-bottom,0px);
+}
+*,*::before,*::after{box-sizing:border-box}
+body{margin:0;background:var(--sun);color:var(--seed);font-family:Arial,"Segoe UI",Tahoma,"Arial Hebrew",sans-serif;font-size:18px;line-height:1.5}
+.wrap{max-width:1040px;margin:0 auto;padding:28px 20px 64px}
+h1{font-weight:800;line-height:.95;letter-spacing:-.02em;font-size:clamp(52px,10vw,118px);margin:0}
+.lead{margin:14px 0 0;max-width:46ch;font-size:19px}
+.hero{padding:24px 0 36px;border-bottom:3px solid var(--seed)}
+:focus-visible{outline:3px solid var(--leaf);outline-offset:3px}
+a{color:inherit}
+footer{margin-top:40px;font-size:15px}
+
+h1{font-size:clamp(44px,8vw,84px)}
+.card{margin-top:36px;background:var(--surface);border:3px solid var(--seed);border-radius:6px;padding:28px}
+form{display:flex;gap:12px;flex-wrap:wrap}
+form label{width:100%;font-weight:800;font-size:20px}
+input{flex:1 1 260px;font:inherit;font-size:22px;padding:14px 18px;border:3px solid var(--seed);border-radius:4px;background:#fff;color:var(--seed)}
+button{font:inherit;font-weight:800;font-size:20px;padding:14px 28px;border:3px solid var(--seed);border-radius:4px;background:var(--seed);color:var(--sun);cursor:pointer}
+button:disabled{opacity:.5;cursor:wait}
+#msg{margin-top:14px;font-weight:600;color:var(--rust)}
+.pick{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-top:8px}
+.pick a{display:block;text-align:center;font-weight:800;font-size:28px;padding:26px 12px;border:3px solid var(--seed);border-radius:6px;text-decoration:none;background:var(--petal)}
+.pick a:hover{background:var(--sun)}
+.out{margin-top:20px;background:transparent;color:var(--seed);font-size:16px;padding:8px 16px;border-width:2px}
+[hidden]{display:none!important}
+@media (max-width:720px){.pick{grid-template-columns:1fr}}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header class="hero">
+    <p style="margin:0 0 8px"><a href="/">→ כל המירוצים</a></p>
+    <h1>עדכון נתונים</h1>
+    <p class="lead">כניסה למנהלים בלבד. אחרי הכניסה בוחרים מירוץ וגוררים אליו את קובץ האקסל של היום.</p>
+  </header>
+  <section class="card" id="login">
+    <form id="f" autocomplete="off">
+      <label for="pw">סיסמת מנהל</label>
+      <input id="pw" type="password" required autocomplete="current-password">
+      <button type="submit" id="go">כניסה</button>
+    </form>
+    <div id="msg" role="status" aria-live="polite"></div>
+  </section>
+  <section class="card" id="panel" hidden>
+    <p style="margin:0 0 14px;font-weight:800;font-size:22px">איזה מירוץ מעדכנים?</p>
+    <div class="pick"><a href="/sales">מכירות</a><a href="/renewals">חידושים</a><a href="/apartments">דירות</a></div>
+    <button type="button" class="out" id="out">יציאה ממצב מנהל</button>
+  </section>
+</div>
+<script>
+const KEY="race-admin", $=id=>document.getElementById(id);
+const show=on=>{ $("login").hidden=on; $("panel").hidden=!on; };
+try{ if(sessionStorage.getItem(KEY)) show(true); }catch(e){}
+$("f").addEventListener("submit", async e=>{
+  e.preventDefault();
+  const pw=$("pw").value, go=$("go"); go.disabled=true; $("msg").textContent="";
+  try{
+    const r=await fetch("/api/data",{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify({password:pw,check:true})});
+    if(r.ok){ sessionStorage.setItem(KEY,pw); $("pw").value=""; show(true); }
+    else $("msg").textContent = r.status===401 ? "הסיסמה לא נכונה." : "השרת לא זמין כרגע. אפשר לנסות שוב בעוד רגע.";
+  }catch(err){ $("msg").textContent="אין חיבור לשרת. אפשר לנסות שוב בעוד רגע."; }
+  go.disabled=false;
+});
+$("out").addEventListener("click", ()=>{ try{ sessionStorage.removeItem(KEY); }catch(e){} show(false); });
+</script>
+</body>
+</html>

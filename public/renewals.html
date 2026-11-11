@@ -1,0 +1,573 @@
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>&#x5D4;&#x5DE;&#x5D9;&#x5E8;&#x5D5;&#x5E5; &#x5DC;&#x5E1;&#x5D5;&#x5E3; &#x5D4;&#x5E9;&#x5E0;&#x5D4;: &#x5D7;&#x5D9;&#x5D3;&#x5D5;&#x5E9;&#x5D9;&#x5DD;</title>
+<style>
+:root{
+  --sun:#FFC20E; --sun-deep:#E9A400; --petal:#FFE07A; --surface:#FFF5CF;
+  --seed:#3A2412; --seed-soft:#6B4A2C; --leaf:#3F6B2A; --leaf-soft:#DCE8B8;
+  --rust:#B5461F; --line:rgba(58,36,18,.18); --bg:var(--sun); --on-bg:var(--seed);
+  color-scheme:light;
+  box-sizing:border-box;
+  padding-top:env(safe-area-inset-top,0px);
+  padding-bottom:env(safe-area-inset-bottom,0px);
+}
+html{scroll-padding-top:env(safe-area-inset-top,0px)}
+*,*::before,*::after{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--on-bg);font-family:Arial,"Segoe UI",Tahoma,"Arial Hebrew",sans-serif;font-size:18px;line-height:1.5}
+.wrap{max-width:1040px;margin:0 auto;padding:28px 20px 64px}
+.display{font-family:Arial,"Segoe UI",Tahoma,"Arial Hebrew",sans-serif;font-weight:800;line-height:.95;letter-spacing:-.02em}
+
+/* hero */
+.hero{display:grid;grid-template-columns:1fr auto;gap:24px;align-items:end;padding:24px 0 36px;border-bottom:3px solid var(--on-bg)}
+.hero h1{font-size:clamp(52px,10vw,118px);margin:0}
+.hero p{margin:12px 0 0;max-width:46ch;font-size:19px}
+.sunflower{width:clamp(110px,18vw,190px);height:auto}
+.gate{margin-top:28px;display:flex;gap:12px;flex-wrap:wrap;align-items:stretch}
+.gate label{width:100%;font-weight:800;font-size:20px}
+.gate input{flex:1 1 260px;font:inherit;font-size:22px;padding:14px 18px;border:3px solid var(--on-bg);border-radius:4px;background:var(--surface);color:var(--seed)}
+.gate button{font:inherit;font-weight:800;font-size:20px;padding:14px 28px;border:3px solid var(--on-bg);border-radius:4px;background:var(--on-bg);color:var(--bg);cursor:pointer}
+.gate button:hover{transform:translateY(-1px)}
+:focus-visible{outline:3px solid var(--leaf);outline-offset:3px}
+.msg{margin-top:14px;font-weight:600}
+.choices{display:flex;flex-wrap:wrap;gap:8px;margin-top:10px}
+.choices button{font:inherit;padding:8px 14px;border:2px solid var(--on-bg);background:transparent;color:var(--on-bg);border-radius:999px;cursor:pointer;font-weight:600}
+.meta{font-size:15px;color:var(--on-bg);opacity:.8;margin-top:10px}
+
+/* personal */
+#me{display:none;margin-top:36px}
+.card{background:var(--surface);color:var(--seed);border-radius:6px;padding:28px;border:3px solid var(--on-bg)}
+.me-head{display:flex;flex-wrap:wrap;justify-content:space-between;align-items:flex-end;gap:16px}
+.me-head h2{font-size:clamp(48px,8vw,84px);margin:0}
+.rank{font-weight:800;font-size:18px;background:var(--sun);color:#3A2412;padding:6px 14px;border-radius:999px}
+.big{display:flex;align-items:baseline;gap:14px;margin:18px 0 4px;flex-wrap:wrap}
+.big .num{font-size:clamp(96px,16vw,170px)}
+.big .lbl{font-size:22px;font-weight:600;max-width:20ch;line-height:1.25}
+.split{color:var(--seed-soft);font-size:16px}
+
+.ladder{position:relative;margin:34px 6px 8px;height:16px;background:var(--petal);border-radius:999px}
+.ladder .fill{position:absolute;inset-block:0;inset-inline-start:0;background:var(--seed);border-radius:999px;width:0;transition:width 1.1s cubic-bezier(.2,.8,.2,1)}
+.ladder .post{position:absolute;top:-10px;width:3px;height:36px;background:var(--seed);transform:translateX(50%)}
+.ladder .post span{position:absolute;top:40px;right:50%;transform:translateX(50%);white-space:nowrap;font-size:13px;font-weight:700}
+.levels{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin-top:44px}
+.lvl{border:2px solid var(--line);border-radius:6px;padding:14px}
+.lvl.main{border:3px solid var(--seed);background:var(--petal)}
+.lvl.done{border-color:var(--leaf);background:var(--leaf-soft)}
+.lvl h3{margin:0;font-size:17px}
+.lvl .n{font-size:52px}
+.lvl small{display:block;color:var(--seed-soft);font-size:15px}
+
+.stats{display:grid;grid-template-columns:repeat(3,1fr);gap:0;margin-top:22px;border-top:2px solid var(--line)}
+.stat{padding:18px 4px 0}
+.stat+.stat{border-inline-start:2px solid var(--line);padding-inline-start:18px}
+.stat .n{font-size:64px}
+.stat p{margin:4px 0 0;font-size:16px;color:var(--seed-soft)}
+
+.insights{margin-top:28px;display:grid;gap:12px}
+.ins{display:grid;grid-template-columns:44px 1fr;gap:14px;align-items:start;padding:16px;border-radius:6px;border-inline-start:6px solid var(--sun-deep);background:var(--bg);color:var(--on-bg)}
+.ins.good{border-color:var(--leaf)} .ins.push{border-color:var(--rust)}
+.ins .ic{font-size:32px;line-height:1}
+.ins h4{margin:0 0 2px;font-size:19px}
+.ins p{margin:0;font-size:17px}
+
+/* race */
+.race{margin-top:48px}
+.race-head{display:flex;flex-wrap:wrap;justify-content:space-between;align-items:flex-end;gap:12px;margin-bottom:14px}
+.race-head h2{font-size:clamp(56px,9vw,96px);margin:0}
+.seg{display:inline-flex;border:3px solid var(--on-bg);border-radius:4px;overflow:hidden}
+.seg button{font:inherit;font-weight:700;padding:8px 14px;background:transparent;color:var(--on-bg);border:0;cursor:pointer}
+.seg button[aria-pressed="true"]{background:var(--on-bg);color:var(--bg)}
+.track{background:var(--surface);color:var(--seed);border:3px solid var(--on-bg);border-radius:6px;max-height:72vh;overflow:auto}
+.lane{display:grid;grid-template-columns:44px minmax(110px,170px) 1fr 52px;align-items:center;gap:8px;padding:0 12px;height:44px;border-bottom:1px dashed var(--line)}
+.lane .pos{font-family:Arial,"Segoe UI",Tahoma,"Arial Hebrew",sans-serif;font-weight:700;font-size:28px;text-align:center}
+.lane .nm{font-weight:600;font-size:16px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.lane .val{font-weight:800;text-align:left;font-variant-numeric:tabular-nums}
+.rail{position:relative;height:100%}
+.rail .post{position:absolute;top:0;bottom:0;width:0;border-inline-start:2px dotted var(--seed-soft);opacity:.55}
+.rail .gap{position:absolute;top:50%;transform:translate(50%,-50%);font-size:13px;font-weight:800;background:var(--surface);color:var(--seed);padding:0 4px;border-radius:3px;font-variant-numeric:tabular-nums;white-space:nowrap;z-index:1}
+.lane.leader .rail .gap{background:var(--petal)}
+.lane.you .rail .gap{background:var(--leaf-soft)}
+.rail .gap.ok{color:var(--leaf)}
+.horse{position:absolute;top:50%;inset-inline-start:0;transform:translateY(-50%);font-size:26px;line-height:1;transition:inset-inline-start 1.6s cubic-bezier(.25,.8,.25,1)}
+.lane.leader{background:var(--petal)}
+.lane.leader .horse::after{content:"\1F451 ";position:absolute;top:-14px;right:4px;font-size:16px}
+.lane.you{background:var(--leaf-soft);outline:3px solid var(--leaf);outline-offset:-3px}
+.postlabels{position:sticky;top:0;z-index:2;background:var(--surface);display:grid;grid-template-columns:44px minmax(110px,170px) 1fr 52px;gap:8px;padding:6px 12px;border-bottom:2px solid var(--seed);font-size:12px;font-weight:700}
+.postlabels .rail{height:18px}
+.postlabels .rail span{position:absolute;transform:translateX(50%);white-space:nowrap}
+.legend{margin-top:10px;font-size:15px}
+footer{margin-top:40px;font-size:14px;opacity:.75}
+
+@media (max-width:720px){
+  .hero{grid-template-columns:1fr}.sunflower{display:none}
+  .levels{grid-template-columns:repeat(2,1fr)}
+  .stats{grid-template-columns:1fr}.stat+.stat{border-inline-start:0;border-top:2px solid var(--line);padding-inline-start:4px}
+  .lane,.postlabels{grid-template-columns:30px 88px 1fr 40px;padding:0 8px}
+  .lane .nm{font-size:14px}.horse{font-size:22px}.rail .gap{font-size:11px;padding:0 2px}
+}
+@media (prefers-reduced-motion:reduce){.horse,.ladder .fill{transition:none}}
+
+.race-head .ctrls{display:flex;flex-wrap:wrap;gap:10px}
+.lane.goals,.postlabels.goals{grid-template-columns:44px minmax(110px,170px) 1fr repeat(4,60px) 52px}
+.gapc{text-align:center;font-weight:800;font-variant-numeric:tabular-nums}
+.gapc.ok{color:var(--leaf)}
+.postlabels .gh{text-align:center;line-height:1.15}
+@media (max-width:720px){.lane.goals,.postlabels.goals{grid-template-columns:26px 1fr repeat(4,40px) 34px;gap:4px}.lane.goals .rail,.postlabels.goals .rail{display:none}.gapc{font-size:13px}.postlabels .gh{font-size:10px}}
+.teamsum{margin:0 0 14px;font-size:17px}
+.admin{margin-top:48px;border:3px dashed var(--on-bg);border-radius:6px;padding:22px}
+.admin h2{margin:0 0 6px;font-size:24px}
+.admin p{margin:0 0 14px;max-width:62ch}
+.admin-row{display:flex;flex-wrap:wrap;gap:12px;align-items:flex-end}
+.admin label{display:flex;flex-direction:column;font-weight:700;gap:4px;font-size:16px}
+.admin input{font:inherit;font-size:16px;padding:10px;border:2px solid var(--on-bg);border-radius:4px;background:var(--surface);color:var(--seed)}
+.admin button{font:inherit;font-weight:800;font-size:18px;padding:11px 24px;border:3px solid var(--on-bg);border-radius:4px;background:var(--on-bg);color:var(--bg);cursor:pointer}
+.admin button:disabled{opacity:.45;cursor:not-allowed}
+#upMsg{margin-top:12px;font-weight:600}
+.drop{display:flex;flex-direction:column;align-items:center;justify-content:center;gap:4px;min-height:130px;margin-bottom:14px;padding:18px;border:3px dashed var(--on-bg);border-radius:6px;background:var(--surface);color:var(--seed);text-align:center;cursor:pointer;font-weight:700;font-size:19px}
+.drop small{font-weight:400;font-size:15px;color:var(--seed-soft)}
+.drop.over{background:var(--petal);border-style:solid}
+.drop input{position:absolute;width:1px;height:1px;opacity:0}
+.drop:focus-within{outline:3px solid var(--leaf);outline-offset:3px}
+.veil{position:fixed;inset:0;z-index:50;display:none;align-items:center;justify-content:center;background:rgba(58,36,18,.55);color:#FFE7A0;font-family:Arial,"Segoe UI",Tahoma,"Arial Hebrew",sans-serif;font-weight:700;font-size:clamp(48px,9vw,96px);text-align:center;padding:24px;pointer-events:none}
+body.dragging .veil{display:flex}
+#nojs{max-width:1000px;margin:20px auto;padding:20px;background:#FFF5CF;color:#3A2412;border:3px solid #3A2412;border-radius:6px;font-family:Arial,"Segoe UI",Tahoma,"Arial Hebrew",sans-serif;font-size:17px}
+#nojs table{border-collapse:collapse;margin:8px 0 18px;min-width:260px}
+#nojs th,#nojs td{padding:4px 12px;border-bottom:1px solid #D9C27A;text-align:right}
+#nojs h3{margin:16px 0 4px}
+[hidden]{display:none!important}
+.offline{margin-top:10px;font:inherit;font-weight:700;font-size:16px;padding:8px 16px;border:2px solid var(--on-bg);border-radius:4px;background:transparent;color:var(--on-bg);cursor:pointer}
+footer p{margin:0}
+
+.boards{display:flex;flex-wrap:wrap;gap:8px;align-items:center;margin-bottom:8px}
+.boards a{font-weight:800;font-size:16px;padding:7px 16px;border:3px solid var(--on-bg);border-radius:999px;color:var(--on-bg);text-decoration:none}
+.boards a[aria-current="page"]{background:var(--on-bg);color:var(--bg)}
+.boards a.home{border-color:transparent;padding-inline:4px}
+.admin.top{margin:8px 0 28px}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <nav class="boards" aria-label="בחירת מירוץ"><a class="home" href="/">→ כל המירוצים</a><a href="/sales">מכירות</a><a href="/renewals" aria-current="page">חידושים</a><a href="/apartments">דירות</a></nav>
+  <header class="hero">
+    <div>
+      <h1 class="display">&#x5D4;&#x5DE;&#x5D9;&#x5E8;&#x5D5;&#x5E5; &#x5DC;&#x5E1;&#x5D5;&#x5E3; &#x5D4;&#x5E9;&#x5E0;&#x5D4;</h1>
+      <p>&#x5DE;&#x5D7;&#x5DC;&#x5E7;&#x5EA; &#x5D7;&#x5D9;&#x5D3;&#x5D5;&#x5E9;&#x5D9;&#x5DD;. &#x5DB;&#x5DC; &#x5D7;&#x5D9;&#x5D3;&#x5D5;&#x5E9; &#x5E9;&#x5E0;&#x5E1;&#x5D2;&#x5E8; &#x5DE;&#x5E7;&#x5D3;&#x5DD; &#x5D0;&#x5EA; &#x5D4;&#x5E1;&#x5D5;&#x5E1; &#x5E9;&#x5DC;&#x5DA; &#x5E2;&#x5DC; &#x5D4;&#x5DE;&#x5E1;&#x5DC;&#x5D5;&#x5DC;. &#x5DE;&#x5DB;&#x5E0;&#x5D9;&#x5E1;&#x5D9;&#x5DD; &#x5E9;&#x5DD; &#x5D5;&#x5E8;&#x5D5;&#x5D0;&#x5D9;&#x5DD; &#x5D0;&#x5D9;&#x5E4;&#x5D4; &#x5E2;&#x5D5;&#x5DE;&#x5D3;&#x5D9;&#x5DD;, &#x5DB;&#x5DE;&#x5D4; &#x5E0;&#x5E9;&#x5D0;&#x5E8; &#x5D5;&#x5DE;&#x5D4; &#x5D4;&#x5E7;&#x5E6;&#x5D1; &#x5E9;&#x5E6;&#x5E8;&#x5D9;&#x5DA;.</p>
+      <form class="gate" id="gate" autocomplete="off">
+        <label for="name">&#x5DE;&#x5D4; &#x5D4;&#x5E9;&#x5DD; &#x5E9;&#x5DC;&#x5DA;?</label>
+        <input id="name" list="names" placeholder="&#x5E9;&#x5DD; &#x5E4;&#x5E8;&#x5D8;&#x5D9; &#x5D5;&#x5E9;&#x5DD; &#x5DE;&#x5E9;&#x5E4;&#x5D7;&#x5D4;" required="">
+        <datalist id="names"></datalist>
+        <button type="submit">&#x5DC;&#x5D4;&#x5E6;&#x5D9;&#x5D2; &#x5D0;&#x5EA; &#x5D4;&#x5E1;&#x5D8;&#x5D8;&#x5D5;&#x5E1; &#x5E9;&#x5DC;&#x5D9;</button>
+      </form>
+      <div class="msg" id="msg" role="status" aria-live="polite"></div>
+      <div class="meta" id="meta"></div>
+    </div>
+    <svg class="sunflower" viewBox="0 0 200 200" aria-hidden="true">
+      <g transform="translate(100 100)">
+        <g id="pt"><ellipse cx="0" cy="-62" rx="16" ry="34" fill="#F2A900" stroke="#3A2412" stroke-width="3"></ellipse></g>
+      </g>
+      <circle cx="100" cy="100" r="40" fill="#3A2412"></circle>
+      <g fill="#6B4A2C" id="seeds"></g>
+    </svg>
+  </header>
+
+  <section id="me" aria-live="polite"></section>
+
+  <section class="race">
+    <div class="race-head">
+      <h2 class="display">&#x5D4;&#x5DE;&#x5E1;&#x5DC;&#x5D5;&#x5DC;</h2>
+      <div class="ctrls">
+        <div class="seg" id="teamSeg" role="group" aria-label="&#x5D1;&#x5D7;&#x5D9;&#x5E8;&#x5EA; &#x5E6;&#x5D5;&#x5D5;&#x5EA;"></div>
+        <div class="seg" id="modeSeg" role="group" aria-label="&#x5E7;&#x5E0;&#x5D4; &#x5DE;&#x5D9;&#x5D3;&#x5D4; &#x5E9;&#x5DC; &#x5D4;&#x5DE;&#x5E1;&#x5DC;&#x5D5;&#x5DC;">
+          <button type="button" data-mode="leader" aria-pressed="true">&#x5DE;&#x5D5;&#x5DC; &#x5D4;&#x5DE;&#x5D5;&#x5D1;&#x5D9;&#x5DC;</button>
+          <button type="button" data-mode="goals" aria-pressed="false">&#x5DE;&#x5D5;&#x5DC; &#x5D4;&#x5D9;&#x5E2;&#x5D3;&#x5D9;&#x5DD;</button>
+        </div>
+      </div>
+    </div>
+    <p class="teamsum" id="teamsum"></p>
+    <div class="track" id="track"></div>
+    <div class="legend" id="legend"></div>
+  </section>
+
+  <section class="admin" id="admin" hidden="">
+    <h2>&#x5E2;&#x5D3;&#x5DB;&#x5D5;&#x5DF; &#x5D4;&#x5E0;&#x5EA;&#x5D5;&#x5E0;&#x5D9;&#x5DD; &#x5D4;&#x5D9;&#x5D5;&#x5DE;&#x5D9;</h2>
+    <p>&#x5D2;&#x5D5;&#x5E8;&#x5E8;&#x5D9;&#x5DD; &#x5D0;&#x5EA; &#x5E7;&#x5D5;&#x5D1;&#x5E5; &#x5D4;&#x5D0;&#x5E7;&#x5E1;&#x5DC; &#x5E9;&#x5DC; &#x5D4;&#x5D9;&#x5D5;&#x5DD; &#x5DC;&#x5DB;&#x5DC; &#x5DE;&#x5E7;&#x5D5;&#x5DD; &#x5D1;&#x5D3;&#x5E3;, &#x5D1;&#x5D5;&#x5D3;&#x5E7;&#x5D9;&#x5DD; &#x5D0;&#x5EA; &#x5D4;&#x5EA;&#x5D0;&#x5E8;&#x5D9;&#x5DA; &#x5D5;&#x5DC;&#x5D5;&#x5D7;&#x5E6;&#x5D9;&#x5DD; &#x5E2;&#x5DC; &#x5E2;&#x5D3;&#x5DB;&#x5D5;&#x5DF;. &#x5D4;&#x5D3;&#x5E3; &#x5E0;&#x5E9;&#x5DE;&#x5E8; &#x5E2;&#x5DD; &#x5D4;&#x5E0;&#x5EA;&#x5D5;&#x5E0;&#x5D9;&#x5DD; &#x5D4;&#x5D7;&#x5D3;&#x5E9;&#x5D9;&#x5DD;, &#x5D5;&#x5DB;&#x5DC; &#x5DE;&#x5D9; &#x5E9;&#x5E4;&#x5D5;&#x5EA;&#x5D7; &#x5D0;&#x5EA; &#x5D4;&#x5DC;&#x5D9;&#x5E0;&#x5E7; &#x5E8;&#x5D5;&#x5D0;&#x5D4; &#x5D0;&#x5D5;&#x5EA;&#x5DD;. &#x5E8;&#x5E7; &#x5DE;&#x5D9; &#x5E9;&#x5D9;&#x5DB;&#x5D5;&#x5DC; &#x5DC;&#x5E2;&#x5E8;&#x5D5;&#x5DA; &#x5D0;&#x5EA; &#x5D4;&#x5D3;&#x5E3; &#x5E8;&#x5D5;&#x5D0;&#x5D4; &#x5D0;&#x5EA; &#x5D4;&#x5D7;&#x5DC;&#x5E7; &#x5D4;&#x5D6;&#x5D4;.</p>
+    <label class="drop" id="drop"><span id="dropName">&#x5D2;&#x5D5;&#x5E8;&#x5E8;&#x5D9;&#x5DD; &#x5DC;&#x5DB;&#x5D0;&#x5DF; &#x5D0;&#x5EA; &#x5E7;&#x5D5;&#x5D1;&#x5E5; &#x5D4;&#x5D0;&#x5E7;&#x5E1;&#x5DC;</span><small>&#x5D0;&#x5D5; &#x5DC;&#x5D5;&#x5D7;&#x5E6;&#x5D9;&#x5DD; &#x5DB;&#x5D3;&#x5D9; &#x5DC;&#x5D1;&#x5D7;&#x5D5;&#x5E8; &#x5E7;&#x5D5;&#x5D1;&#x5E5;</small><input type="file" id="upFile" accept=".xlsx,.xls"></label>
+    <div class="veil" aria-hidden="true">&#x5E9;&#x5D7;&#x5E8;&#x5E8;&#x5D5; &#x5D0;&#x5EA; &#x5D4;&#x5E7;&#x5D5;&#x5D1;&#x5E5; &#x5DB;&#x5D3;&#x5D9; &#x5DC;&#x5D8;&#x5E2;&#x5D5;&#x5DF; &#x5D0;&#x5D5;&#x5EA;&#x5D5;</div>
+    <div class="admin-row">
+      <label>&#x5D4;&#x5E0;&#x5EA;&#x5D5;&#x5E0;&#x5D9;&#x5DD; &#x5E0;&#x5DB;&#x5D5;&#x5E0;&#x5D9;&#x5DD; &#x5E2;&#x5D3;<input type="date" id="upDate"></label>
+      <button type="button" id="upBtn" disabled="">&#x5DC;&#x5E2;&#x5D3;&#x5DB;&#x5DF; &#x5D0;&#x5EA; &#x5D4;&#x5D3;&#x5E3;</button>
+    </div>
+    <div id="upMsg" role="status" aria-live="polite"></div>
+  </section>
+
+  <footer><p id="foot"></p><button type="button" class="offline" id="offlineBtn" hidden="">&#x5DC;&#x5D4;&#x5D5;&#x5E8;&#x5D9;&#x5D3; &#x5E2;&#x5D5;&#x5EA;&#x5E7; &#x5E9;&#x5DC; &#x5D4;&#x5D3;&#x5E3; &#x5E9;&#x5E2;&#x5D5;&#x5D1;&#x5D3; &#x5D1;&#x5DC;&#x5D9; &#x5D0;&#x5D9;&#x5E0;&#x5D8;&#x5E8;&#x5E0;&#x5D8;</button><div id="offlineMsg"></div></footer>
+</div>
+
+<script>
+const SRC = { title: document.title, style: document.querySelector("style").textContent, wrap: document.querySelector(".wrap").outerHTML, script: document.currentScript.textContent, lib: (document.getElementById("xlsxlib")||{}).textContent||"" };
+{ const nj=document.getElementById("nojs"); if(nj) nj.remove(); }
+/* ===== \u05d4\u05d2\u05d3\u05e8\u05d5\u05ea \u05d4\u05de\u05d1\u05e6\u05e2: \u05dc\u05e2\u05d3\u05db\u05df \u05db\u05d0\u05df ===== */
+const CONFIG = {
+  start:    "2026-11-01",   // \u05ea\u05d7\u05d9\u05dc\u05ea \u05d4\u05de\u05d1\u05e6\u05e2
+  end:      "2026-12-31",   // \u05e1\u05d9\u05d5\u05dd \u05d4\u05de\u05d1\u05e6\u05e2
+  dataDate: "2026-11-10",   // \u05d4\u05e0\u05ea\u05d5\u05e0\u05d9\u05dd \u05e0\u05db\u05d5\u05e0\u05d9\u05dd \u05e2\u05d3 \u05ea\u05d0\u05e8\u05d9\u05da \u05d6\u05d4 (\u05db\u05d5\u05dc\u05dc)
+  holidays: [],             // \u05d9\u05de\u05d9\u05dd \u05e9\u05d0\u05d9\u05e0\u05dd \u05d9\u05de\u05d9 \u05e2\u05d1\u05d5\u05d3\u05d4, \u05dc\u05de\u05e9\u05dc "2026-12-25"
+  workDays: [0,1,2,3,4],    // \u05e8\u05d0\u05e9\u05d5\u05df \u05e2\u05d3 \u05d7\u05de\u05d9\u05e9\u05d9
+  minShown: 5,              // \u05e0\u05e6\u05d9\u05d2\u05d9\u05dd \u05e2\u05dd \u05e4\u05d7\u05d5\u05ea \u05d7\u05d9\u05d3\u05d5\u05e9\u05d9\u05dd \u05de\u05d6\u05d4 \u05dc\u05d0 \u05de\u05d5\u05e6\u05d2\u05d9\u05dd
+  teams: {
+    digital: { label:"\u05e6\u05d5\u05d5\u05ea \u05d3\u05d9\u05d2\u05d9\u05d8\u05dc", levels:[
+      {label:"\u05de\u05e7\u05d5\u05dd \u05e9\u05dc\u05d9\u05e9\u05d9", target:1300},{label:"\u05de\u05e7\u05d5\u05dd \u05e9\u05e0\u05d9", target:1400},
+      {label:"\u05de\u05e7\u05d5\u05dd \u05e8\u05d0\u05e9\u05d5\u05df", target:1500},{label:"\u05e6\u05f3\u05de\u05e4\u05d9\u05d5\u05df", target:1800}]},
+    call: { label:"\u05e6\u05d5\u05d5\u05ea \u05de\u05d5\u05e7\u05d3", levels:[
+      {label:"\u05de\u05e7\u05d5\u05dd \u05e9\u05dc\u05d9\u05e9\u05d9", target:900},{label:"\u05de\u05e7\u05d5\u05dd \u05e9\u05e0\u05d9", target:1000},
+      {label:"\u05de\u05e7\u05d5\u05dd \u05e8\u05d0\u05e9\u05d5\u05df", target:1100},{label:"\u05e6\u05f3\u05de\u05e4\u05d9\u05d5\u05df", target:1200}]}
+  }
+};
+/* n=\u05e9\u05dd, t=\u05e7\u05e1\u05e7\u05d5 \u05e6\u05d3 \u05d2\u05f3, m=\u05e7\u05e1\u05e7\u05d5 \u05de\u05e7\u05d9\u05e3, s=\u05e1\u05d4\u05f4\u05db \u05d7\u05d9\u05d3\u05d5\u05e9\u05d9\u05dd \u05d1\u05e0\u05d9\u05db\u05d5\u05d9 \u05d1\u05d9\u05d8\u05d5\u05dc\u05d9\u05dd, team=\u05e6\u05d5\u05d5\u05ea */
+let DATA = [{"n":"\u05d0\u05d1\u05d9 \u05d0\u05dc\u05d8\u05d9\u05e3","t":31,"m":75,"s":106,"team":"call"},{"n":"\u05d0\u05d5\u05e8\u05d0\u05dc \u05dc\u05d5\u05d9","t":11,"m":16,"s":27,"team":"call"},{"n":"\u05d0\u05d9\u05dc\u05e0\u05d4 \u05e8\u05e4\u05e4\u05d5\u05e8\u05d8","t":94,"m":192,"s":286,"team":"digital"},{"n":"\u05d0\u05d9\u05ea\u05d9 \u05e1\u05d5\u05dc\u05d5\u05de\u05d5\u05df","t":21,"m":95,"s":116,"team":"call"},{"n":"\u05d0\u05dc\u05d5\u05df \u05d0\u05d1\u05d9\u05e9\u05e8","t":120,"m":230,"s":350,"team":"digital"},{"n":"\u05d0\u05dc\u05de\u05d5\u05d2 \u05d9\u05e2\u05e7\u05d1","t":55,"m":110,"s":165,"team":"call"},{"n":"\u05d2'\u05d5\u05df \u05e7\u05d9\u05d9\u05df","t":94,"m":216,"s":310,"team":"digital"},{"n":"\u05d3\u05d5\u05d3 \u05de\u05d5\u05e8 \u05db\u05dc\u05e4\u05d5\u05df","t":104,"m":171,"s":275,"team":"digital"},{"n":"\u05d3\u05d5\u05e8 \u05e4 \u05e4\u05d9\u05e7\u05e1\u05dc","t":87,"m":123,"s":210,"team":"digital"},{"n":"\u05d7\u05df \u05d2\u05e8\u05d5\u05df","t":87,"m":165,"s":252,"team":"digital"},{"n":"\u05d9\u05e0\u05d5\u05df \u05e4\u05e8\u05e5","t":102,"m":164,"s":266,"team":"digital"},{"n":"\u05d9\u05e0\u05d9\u05d1 \u05e7\u05d5\u05e9\u05e7\u05d5\u05df","t":118,"m":247,"s":365,"team":"digital"},{"n":"\u05d9\u05e8\u05d3\u05df \u05d1\u05e8\u05db\u05d4","t":91,"m":166,"s":257,"team":"digital"},{"n":"\u05dc\u05d9\u05d4\u05d9 \u05d8\u05d9\u05e7\u05d5\u05e6\u05e7\u05d9","t":74,"m":110,"s":184,"team":"call"},{"n":"\u05dc\u05d9\u05de\u05d0\u05d9 \u05d1\u05d5\u05e7\u05d5\u05d1\u05d6\u05d4","t":71,"m":115,"s":186,"team":"call"},{"n":"\u05de\u05d9\u05db\u05dc \u05d1\u05df \u05d0\u05e8\u05d9","t":42,"m":96,"s":138,"team":"call"},{"n":"\u05e0\u05d5\u05e4\u05e8 \u05db\u05d4\u05df","t":123,"m":214,"s":337,"team":"digital"},{"n":"\u05e1\u05dc\u05d9\u05d4 \u05d0\u05dc\u05d9\u05de\u05dc\u05da","t":56,"m":92,"s":148,"team":"digital"},{"n":"\u05e1\u05e4\u05d9\u05e8 \u05d9\u05e2\u05e7\u05d5\u05d1\u05d5\u05d1","t":30,"m":104,"s":134,"team":"call"},{"n":"\u05e2\u05d3\u05df \u05d1\u05d5\u05d7\u05e1\u05d9\u05e8\u05d4","t":103,"m":188,"s":291,"team":"digital"},{"n":"\u05e2\u05d9\u05d3\u05df \u05e1\u05d9\u05e0\u05d9","t":29,"m":66,"s":95,"team":"call"},{"n":"\u05e8\u05d7\u05dc \u05de\u05e0\u05d7\u05dd","t":128,"m":178,"s":306,"team":"digital"},{"n":"\u05e8\u05d9\u05e0\u05ea \u05d1\u05e0\u05d9\u05de\u05d9\u05df","t":54,"m":108,"s":162,"team":"call"},{"n":"\u05e9\u05dc\u05d5\u05de\u05d9\u05ea \u05db\u05d4\u05df","t":42,"m":70,"s":112,"team":"call"},{"n":"\u05e9\u05e0\u05d9 \u05e9 \u05e9\u05e8\u05d1\u05d9\u05d8","t":76,"m":181,"s":257,"team":"digital"}];
+
+/* ===== \u05d7\u05d9\u05e9\u05d5\u05d1\u05d9\u05dd ===== */
+const D = s => { const [y,m,d] = s.split("-").map(Number); return new Date(y, m-1, d); };
+const iso = d => d.getFullYear()+"-"+String(d.getMonth()+1).padStart(2,"0")+"-"+String(d.getDate()).padStart(2,"0");
+function workdays(a, b){ let c=0; const x=new Date(a); while(x<=b){ if(CONFIG.workDays.includes(x.getDay()) && !CONFIG.holidays.includes(iso(x))) c++; x.setDate(x.getDate()+1);} return c; }
+let ELAPSED=1, LEFT=0;
+function recalcDays(){
+  const dataEnd = D(CONFIG.dataDate);
+  const nextDay = new Date(dataEnd); nextDay.setDate(nextDay.getDate()+1);
+  ELAPSED = Math.max(1, workdays(D(CONFIG.start), dataEnd));
+  LEFT = workdays(nextDay, D(CONFIG.end));
+}
+const fmtDate = s => { const d=D(s); return d.getDate()+"."+(d.getMonth()+1)+"."+d.getFullYear(); };
+const f1 = n => (Math.round(n*10)/10).toLocaleString("he-IL",{maximumFractionDigits:1});
+
+let TEAMS = {}, ALL = [];
+function build(){
+  TEAMS = {};
+  for(const [key,cfg] of Object.entries(CONFIG.teams)){
+    const reps = DATA.filter(r=>r.team===key && r.s>=CONFIG.minShown).sort((a,b)=>b.s-a.s);
+    let rank=0, prev=null;
+    reps.forEach((r,i)=>{ if(r.s!==prev){rank=i+1; prev=r.s;} r.rank=rank; });
+    TEAMS[key] = {...cfg, key, reps, leader:reps[0]};
+  }
+  ALL = Object.values(TEAMS).flatMap(t=>t.reps);
+}
+/* \u05e9\u05d9\u05d5\u05da \u05e0\u05e6\u05d9\u05d2\u05d9\u05dd \u05dc\u05e6\u05d5\u05d5\u05ea\u05d9\u05dd (\u05de\u05e7\u05d5\u05d1\u05e5 \u05d4\u05d9\u05e2\u05d3\u05d9\u05dd) */
+const TEAM_OF = {};
+
+/* ===== \u05d7\u05d9\u05e4\u05d5\u05e9 ===== */
+const norm = s => s.replace(/["'\u05f3\u05f4\-]/g," ").replace(/\s+/g," ").trim().toLowerCase();
+function find(q){
+  const nq = norm(q); if(!nq) return [];
+  const toks = nq.split(" ");
+  return ALL.filter(r => { const n = norm(r.n); return toks.every(t => n.split(" ").some(w => w.startsWith(t)) || n.includes(t)); });
+}
+
+const msg = document.getElementById("msg");
+document.getElementById("gate").addEventListener("submit", e=>{
+  e.preventDefault();
+  const q = document.getElementById("name").value;
+  const hits = find(q);
+  if(!hits.length){ msg.innerHTML = `\u05dc\u05d0 \u05de\u05e6\u05d0\u05e0\u05d5 \u05d0\u05ea \u05d4\u05e9\u05dd \u201e${escapeHtml(q)}\u201c \u05d1\u05d8\u05d1\u05dc\u05ea \u05d4\u05de\u05d1\u05e6\u05e2. \u05db\u05d3\u05d0\u05d9 \u05dc\u05e0\u05e1\u05d5\u05ea \u05e8\u05e7 \u05e9\u05dd \u05e4\u05e8\u05d8\u05d9, \u05d0\u05d5 \u05dc\u05d1\u05d7\u05d5\u05e8 \u05de\u05d4\u05e8\u05e9\u05d9\u05de\u05d4 \u05e9\u05e0\u05e4\u05ea\u05d7\u05ea \u05d1\u05d6\u05de\u05df \u05d4\u05d4\u05e7\u05dc\u05d3\u05d4.`; return; }
+  if(hits.length===1){ msg.textContent=""; show(hits[0]); return; }
+  msg.innerHTML = `\u05de\u05e6\u05d0\u05e0\u05d5 \u05db\u05de\u05d4 \u05e9\u05de\u05d5\u05ea \u05de\u05ea\u05d0\u05d9\u05de\u05d9\u05dd. \u05de\u05d9 \u05de\u05d4\u05dd?<div class="choices">${hits.slice(0,12).map(h=>`<button type="button" data-n="${h.n}">${h.n}</button>`).join("")}</div>`;
+});
+msg.addEventListener("click", e=>{ const b=e.target.closest("button[data-n]"); if(!b) return; const r=ALL.find(x=>x.n===b.dataset.n); msg.textContent=""; document.getElementById("name").value=r.n; show(r); });
+function escapeHtml(s){ return s.replace(/[&<>"]/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c])); }
+
+/* ===== \u05ea\u05d5\u05d1\u05e0\u05d5\u05ea ===== */
+function insights(r){
+  const T=TEAMS[r.team], reps=T.reps, LEADER=T.leader;
+  const out=[], total=Math.max(0,r.s), avg=total/ELAPSED, proj=total+avg*LEFT;
+  const L=T.levels, next=L.find(l=>total<l.target);
+  if(!next){
+    out.push({c:"good",i:"\ud83c\udfc6",h:"\u05e6\u05f3\u05de\u05e4\u05d9\u05d5\u05df!",t:`\u05e2\u05d1\u05e8\u05ea \u05d0\u05ea \u05e8\u05e3 \u05d4\u05e6\u05f3\u05de\u05e4\u05d9\u05d5\u05df \u05e9\u05dc ${T.label} (${L[L.length-1].target}). \u05d6\u05d4 \u05d4\u05d4\u05d9\u05e9\u05d2 \u05d4\u05d2\u05d1\u05d5\u05d4 \u05d1\u05d9\u05d5\u05ea\u05e8 \u05d1\u05de\u05d1\u05e6\u05e2, \u05d5\u05d4\u05d5\u05d0 \u05db\u05d1\u05e8 \u05d1\u05db\u05d9\u05e1.`});
+  } else if(avg<=0){
+    out.push({c:"push",i:"\ud83c\udf31",h:"\u05d4\u05d6\u05de\u05df \u05dc\u05e4\u05ea\u05d5\u05d7 \u05d0\u05ea \u05d4\u05d7\u05e9\u05d1\u05d5\u05df",t:`\u05e2\u05d5\u05d3 \u05dc\u05d0 \u05e0\u05e8\u05e9\u05de\u05d5 \u05d7\u05d9\u05d3\u05d5\u05e9\u05d9\u05dd \u05d1\u05ea\u05e7\u05d5\u05e4\u05d4. \u05e0\u05e9\u05d0\u05e8\u05d5 ${LEFT} \u05d9\u05de\u05d9 \u05e2\u05d1\u05d5\u05d3\u05d4, \u05d5\u05d4\u05d7\u05d9\u05d3\u05d5\u05e9 \u05d4\u05e8\u05d0\u05e9\u05d5\u05df \u05d4\u05d5\u05d0 \u05d6\u05d4 \u05e9\u05de\u05d6\u05d9\u05d6 \u05d0\u05ea \u05d4\u05e1\u05d5\u05e1 \u05de\u05e7\u05d5 \u05d4\u05d6\u05d9\u05e0\u05d5\u05e7.`});
+  } else {
+    const need=(next.target-total)/Math.max(1,LEFT), ratio=avg/need;
+    if(ratio>=1.15){
+      out.push({c:"good",i:"\ud83c\udf96\ufe0f",h:"\u05e6\u05dc\u05f4\u05e9 \u05e2\u05dc \u05d4\u05e7\u05e6\u05d1",t:`\u05de\u05de\u05d5\u05e6\u05e2 \u05e9\u05dc ${f1(avg)} \u05d7\u05d9\u05d3\u05d5\u05e9\u05d9\u05dd \u05d1\u05d9\u05d5\u05dd, \u05d9\u05d5\u05ea\u05e8 \u05de\u05de\u05d4 \u05e9\u05e0\u05d3\u05e8\u05e9 \u05dc${next.label} (${f1(need)} \u05d1\u05d9\u05d5\u05dd). \u05d1\u05e7\u05e6\u05d1 \u05d4\u05d6\u05d4 \u05e6\u05e4\u05d5\u05d9\u05d9\u05dd \u05d1\u05e2\u05e8\u05da ${Math.round(proj)} \u05d7\u05d9\u05d3\u05d5\u05e9\u05d9\u05dd \u05d1\u05e1\u05d5\u05e3 \u05d4\u05de\u05d1\u05e6\u05e2.`});
+    } else if(ratio>=0.95){
+      out.push({c:"",i:"\u26a1",h:"\u05de\u05de\u05e9 \u05e2\u05dc \u05d4\u05e7\u05d5",t:`\u05d4\u05e7\u05e6\u05d1 \u05d4\u05e0\u05d5\u05db\u05d7\u05d9 (${f1(avg)} \u05d1\u05d9\u05d5\u05dd) \u05db\u05de\u05e2\u05d8 \u05d1\u05d3\u05d9\u05d5\u05e7 \u05de\u05d4 \u05e9\u05e0\u05d3\u05e8\u05e9 \u05dc${next.label} (${f1(need)} \u05d1\u05d9\u05d5\u05dd). \u05e2\u05d5\u05d3 \u05d7\u05d9\u05d3\u05d5\u05e9 \u05d0\u05d5 \u05e9\u05e0\u05d9\u05d9\u05dd \u05d1\u05d9\u05d5\u05dd \u05de\u05e2\u05d1\u05e8 \u05dc\u05e8\u05d2\u05d9\u05dc \u05d9\u05d9\u05ea\u05e0\u05d5 \u05de\u05e8\u05d5\u05d5\u05d7 \u05d1\u05d9\u05d8\u05d7\u05d5\u05df.`});
+    } else if(ratio>=0.6){
+      out.push({c:"push",i:"\ud83d\udcaa",h:"\u05e6\u05e8\u05d9\u05da \u05dc\u05d4\u05d2\u05d1\u05d9\u05e8 \u05e7\u05e6\u05ea",t:`\u05db\u05d3\u05d9 \u05dc\u05d4\u05d2\u05d9\u05e2 \u05dc${next.label} \u05d7\u05e1\u05e8\u05d9\u05dd \u05d1\u05e2\u05e8\u05da ${f1(need-avg)} \u05d7\u05d9\u05d3\u05d5\u05e9\u05d9\u05dd \u05d1\u05d9\u05d5\u05dd \u05de\u05e2\u05d1\u05e8 \u05dc\u05e7\u05e6\u05d1 \u05d4\u05e0\u05d5\u05db\u05d7\u05d9. \u05d6\u05d4 \u05e2\u05e0\u05d9\u05d9\u05df \u05e9\u05dc \u05db\u05de\u05d4 \u05e9\u05d9\u05d7\u05d5\u05ea \u05e0\u05d5\u05e1\u05e4\u05d5\u05ea \u05d1\u05d9\u05d5\u05dd, \u05d5\u05d6\u05d4 \u05d1\u05d4\u05d9\u05e9\u05d2 \u05d9\u05d3.`});
+    } else {
+      out.push({c:"push",i:"\ud83c\udf3b",h:"\u05db\u05dc \u05d7\u05d9\u05d3\u05d5\u05e9 \u05de\u05e7\u05e8\u05d1",t:`\u05d4\u05d9\u05e2\u05d3 \u05dc${next.label} \u05d3\u05d5\u05e8\u05e9 ${f1(need)} \u05d7\u05d9\u05d3\u05d5\u05e9\u05d9\u05dd \u05d1\u05d9\u05d5\u05dd, ${Math.round(need*5)} \u05d1\u05e9\u05d1\u05d5\u05e2. \u05db\u05d3\u05d0\u05d9 \u05dc\u05d7\u05dc\u05e7 \u05d0\u05d5\u05ea\u05d5 \u05dc\u05d9\u05e2\u05d3 \u05e9\u05d1\u05d5\u05e2\u05d9 \u05d5\u05dc\u05e1\u05e4\u05d5\u05e8 \u05d4\u05e6\u05dc\u05d7\u05d5\u05ea \u05e7\u05d8\u05e0\u05d5\u05ea. ${LEFT} \u05d9\u05de\u05d9 \u05e2\u05d1\u05d5\u05d3\u05d4 \u05d6\u05d4 \u05e2\u05d3\u05d9\u05d9\u05df \u05d4\u05e8\u05d1\u05d4 \u05d6\u05de\u05df.`});
+    }
+    const projLvl=[...L].reverse().find(l=>proj>=l.target);
+    if(projLvl && projLvl!==next && ratio>=1.15) out.push({c:"good",i:"\ud83d\udd2d",h:"\u05dc\u05d0\u05df \u05d4\u05e7\u05e6\u05d1 \u05dc\u05d5\u05e7\u05d7",t:`\u05d0\u05dd \u05d4\u05e7\u05e6\u05d1 \u05d9\u05d9\u05e9\u05de\u05e8, \u05d4\u05ea\u05d7\u05d6\u05d9\u05ea \u05d4\u05d9\u05d0 ${projLvl.label}. \u05e9\u05d5\u05d5\u05d4 \u05dc\u05e9\u05de\u05d5\u05e8 \u05e2\u05dc \u05d4\u05d3\u05d4\u05d9\u05e8\u05d4.`});
+  }
+  if(r.rank===1){
+    const second=reps.find(x=>x.s<r.s);
+    out.push({c:"good",i:"\ud83d\udc51",h:`\u05d1\u05e8\u05d0\u05e9 ${T.label}`,t: second?`\u05d4\u05e1\u05d5\u05e1 \u05e9\u05dc\u05da \u05de\u05d5\u05d1\u05d9\u05dc \u05d0\u05ea \u05d4\u05de\u05d9\u05e8\u05d5\u05e5, \u05e2\u05dd \u05e4\u05e2\u05e8 \u05e9\u05dc ${r.s-second.s} \u05d7\u05d9\u05d3\u05d5\u05e9\u05d9\u05dd \u05de\u05d4\u05de\u05e7\u05d5\u05dd \u05d4\u05d1\u05d0.`:"\u05d4\u05e1\u05d5\u05e1 \u05e9\u05dc\u05da \u05de\u05d5\u05d1\u05d9\u05dc \u05d0\u05ea \u05d4\u05de\u05d9\u05e8\u05d5\u05e5."});
+  } else {
+    const ahead=reps.filter(x=>x.s>r.s).pop();
+    out.push({c:"",i:"\ud83d\udc0e",h:`\u05de\u05e7\u05d5\u05dd ${r.rank} \u05de\u05ea\u05d5\u05da ${reps.length} \u05d1${T.label}`,t:`\u05e8\u05e7 ${ahead.s-r.s} \u05d7\u05d9\u05d3\u05d5\u05e9\u05d9\u05dd \u05de\u05e4\u05e8\u05d9\u05d3\u05d9\u05dd \u05de\u05de\u05e7\u05d5\u05dd ${ahead.rank}. \u05d4\u05e4\u05e2\u05e8 \u05de\u05d4\u05de\u05d5\u05d1\u05d9\u05dc/\u05d4 (${LEADER.n}) \u05d4\u05d5\u05d0 ${LEADER.s-r.s} \u05d7\u05d9\u05d3\u05d5\u05e9\u05d9\u05dd.`});
+  }
+  return {out,avg,total};
+}
+
+/* ===== \u05db\u05e8\u05d8\u05d9\u05e1 \u05d0\u05d9\u05e9\u05d9 ===== */
+let YOU=null, CUR="digital", MODE="leader";
+function show(r, quiet){
+  YOU=r; CUR=r.team;
+  const T=TEAMS[r.team];
+  const {out,avg,total}=insights(r), L=T.levels, third=L[0];
+  const need3 = total>=third.target?0:(third.target-total)/Math.max(1,LEFT);
+  const max=L[L.length-1].target*1.04;
+  const el=document.getElementById("me");
+  el.innerHTML=`
+  <div class="card">
+    <div class="me-head"><h2 class="display">${r.n}</h2><span class="rank">\u05de\u05e7\u05d5\u05dd ${r.rank} \u05d1${T.label}</span></div>
+    <div class="big"><span class="num display">${r.s}</span><span class="lbl">\u05d7\u05d9\u05d3\u05d5\u05e9\u05d9\u05dd \u05de\u05ea\u05d7\u05d9\u05dc\u05ea \u05d4\u05de\u05d1\u05e6\u05e2</span></div>
+    <div class="split">\u05de\u05ea\u05d5\u05db\u05dd ${r.t} \u05e7\u05e1\u05e7\u05d5 \u05e6\u05d3 \u05d2\u05f3 \u05d5\u05be${r.m} \u05e7\u05e1\u05e7\u05d5 \u05de\u05e7\u05d9\u05e3, \u05d1\u05e0\u05d9\u05db\u05d5\u05d9 \u05d1\u05d9\u05d8\u05d5\u05dc\u05d9\u05dd</div>
+    <div class="ladder" aria-hidden="true"><div class="fill" id="fill"></div>
+      ${L.map(l=>`<div class="post" style="right:${l.target/max*100}%"><span>${l.target}</span></div>`).join("")}
+    </div>
+    <div class="levels">${L.map((l,i)=>{const done=total>=l.target; return `
+      <div class="lvl ${done?"done":""} ${i===0&&!done?"main":""}">
+        <h3>${l.label}</h3>
+        <div class="n display">${done?"\u2713":l.target-total}</div>
+        <small>${done?`\u05d4\u05d5\u05e9\u05d2 (\u05d9\u05e2\u05d3 ${l.target})`:`\u05d7\u05d9\u05d3\u05d5\u05e9\u05d9\u05dd \u05d7\u05e1\u05e8\u05d9\u05dd \u05dc\u05d9\u05e2\u05d3 ${l.target}`}</small>
+        ${done?"":`<small>${f1((l.target-total)/Math.max(1,LEFT))} \u05d1\u05d9\u05d5\u05dd</small>`}
+      </div>`}).join("")}
+    </div>
+    <div class="stats">
+      <div class="stat"><div class="n display">${f1(avg)}</div><p>\u05de\u05de\u05d5\u05e6\u05e2 \u05d7\u05d9\u05d3\u05d5\u05e9\u05d9\u05dd \u05dc\u05d9\u05d5\u05dd \u05e2\u05d1\u05d5\u05d3\u05d4 \u05e2\u05d3 \u05e2\u05db\u05e9\u05d9\u05d5 (${ELAPSED} \u05d9\u05de\u05d9\u05dd)</p></div>
+      <div class="stat"><div class="n display">${LEFT}</div><p>\u05d9\u05de\u05d9 \u05e2\u05d1\u05d5\u05d3\u05d4 \u05e0\u05d5\u05ea\u05e8\u05d5 \u05e2\u05d3 ${fmtDate(CONFIG.end)}</p></div>
+      <div class="stat"><div class="n display">${need3?f1(need3):"\u2713"}</div><p>${need3?"\u05de\u05de\u05d5\u05e6\u05e2 \u05d9\u05d5\u05de\u05d9 \u05e0\u05d3\u05e8\u05e9 \u05dc\u05d4\u05d2\u05e2\u05d4 \u05dc\u05de\u05e7\u05d5\u05dd \u05e9\u05dc\u05d9\u05e9\u05d9":"\u05d9\u05e2\u05d3 \u05d4\u05de\u05e7\u05d5\u05dd \u05d4\u05e9\u05dc\u05d9\u05e9\u05d9 \u05db\u05d1\u05e8 \u05d4\u05d5\u05e9\u05d2"}</p></div>
+    </div>
+    <div class="insights">${out.map(o=>`<div class="ins ${o.c}"><div class="ic">${o.i}</div><div><h4>${o.h}</h4><p>${o.t}</p></div></div>`).join("")}</div>
+  </div>`;
+  el.style.display="block";
+  requestAnimationFrame(()=>requestAnimationFrame(()=>{document.getElementById("fill").style.width=Math.min(100,total/max*100)+"%";}));
+  renderTeamSeg(); renderTrack(!quiet);
+  if(!quiet) el.scrollIntoView({behavior:matchMedia("(prefers-reduced-motion: reduce)").matches?"auto":"smooth",block:"start"});
+}
+
+/* ===== \u05de\u05e1\u05dc\u05d5\u05dc ===== */
+function renderTeamSeg(){
+  document.getElementById("teamSeg").innerHTML = Object.values(TEAMS).map(t=>`<button type="button" data-team="${t.key}" aria-pressed="${t.key===CUR}">${t.label}</button>`).join("");
+}
+function renderTrack(scrollToYou){
+  const T=TEAMS[CUR], L=T.levels, reps=T.reps, LEADER=T.leader;
+  const max = MODE==="goals" ? L[L.length-1].target*1.04 : Math.max(1,LEADER.s)*1.06;
+  const posts = L.filter(l=>l.target<=max);
+  const pos = v => Math.max(0,Math.min(v,max))/max*100;
+  document.getElementById("teamsum").textContent = `${T.label}: ${reps.length} \u05e0\u05e6\u05d9\u05d2\u05d9\u05dd. \u05d9\u05e2\u05d3\u05d9\u05dd: ${L.map(l=>`${l.label} ${l.target}`).join(", ")}.`;
+  const tr=document.getElementById("track");
+  const G = MODE==="goals";
+  tr.innerHTML = `<div class="postlabels ${G?"goals":""}" aria-hidden="true"><span>#</span><span>\u05e9\u05dd</span><div class="rail">${G?"":posts.map(l=>`<span style="right:${pos(l.target)}%">${l.label}</span>`).join("")}</div>${G?L.map(l=>`<span class="gh">\u05d7\u05e1\u05e8 \u05dc${l.label.replace("\u05de\u05e7\u05d5\u05dd ","")}<br>${l.target}</span>`).join(""):""}<span>\u05d7\u05d9\u05d3\u05d5\u05e9\u05d9\u05dd</span></div>`+
+  reps.map(r=>`<div class="lane ${G?"goals":""} ${r.rank===1?"leader":""} ${r===YOU?"you":""}" ${r===YOU?'id="you"':""}>
+    <span class="pos">${r.rank}</span><span class="nm" title="${r.n}">${r.n}</span>
+    <div class="rail">${posts.map(l=>`<i class="post" style="right:${pos(l.target)}%"></i>`).join("")}<span class="horse" data-to="${pos(r.s)}" role="img" aria-label="${r.n}: ${r.s} \u05d7\u05d9\u05d3\u05d5\u05e9\u05d9\u05dd">\ud83d\udc0e</span></div>
+    ${G?L.map(l=>{const miss=l.target-Math.max(0,r.s);return `<span class="gapc ${miss<=0?"ok":""}" title="\u05d7\u05e1\u05e8\u05d9\u05dd \u05dc${l.label}">${miss<=0?"\u2713":miss}</span>`}).join(""):""}
+    <span class="val">${r.s}</span></div>`).join("");
+  requestAnimationFrame(()=>requestAnimationFrame(()=>tr.querySelectorAll(".horse").forEach(h=>h.style.insetInlineStart=`calc(${h.dataset.to}% - 26px * ${h.dataset.to/100})`)));
+  document.getElementById("legend").textContent = MODE==="goals"
+    ? `\u05e7\u05d5 \u05d4\u05e1\u05d9\u05d5\u05dd \u05d4\u05d5\u05d0 \u05e8\u05e3 \u05d4\u05e6\u05f3\u05de\u05e4\u05d9\u05d5\u05df \u05e9\u05dc ${T.label} (${L[L.length-1].target}). \u05d4\u05e7\u05d5\u05d5\u05d9\u05dd \u05d4\u05de\u05e0\u05d5\u05e7\u05d3\u05d9\u05dd \u05d4\u05dd \u05e8\u05e4\u05d9 \u05d4\u05de\u05e7\u05d5\u05de\u05d5\u05ea, \u05d5\u05d4\u05e2\u05de\u05d5\u05d3\u05d5\u05ea \u05de\u05e9\u05de\u05d0\u05dc \u05de\u05e8\u05d0\u05d5\u05ea \u05db\u05de\u05d4 \u05d7\u05d9\u05d3\u05d5\u05e9\u05d9\u05dd \u05d7\u05e1\u05e8\u05d9\u05dd \u05dc\u05db\u05dc \u05e0\u05e6\u05d9\u05d2 \u05db\u05d3\u05d9 \u05dc\u05d4\u05d2\u05d9\u05e2 \u05dc\u05db\u05dc \u05de\u05e7\u05d5\u05dd. \u2713 \u05de\u05e1\u05de\u05df \u05de\u05e7\u05d5\u05dd \u05e9\u05db\u05d1\u05e8 \u05d4\u05d5\u05e9\u05d2.`
+    : `\u05e7\u05d5 \u05d4\u05e1\u05d9\u05d5\u05dd \u05d4\u05d5\u05d0 \u05d4\u05de\u05d5\u05d1\u05d9\u05dc/\u05d4 \u05e9\u05dc ${T.label}, ${LEADER.n}, \u05e2\u05dd ${LEADER.s} \u05d7\u05d9\u05d3\u05d5\u05e9\u05d9\u05dd. \ud83d\udc51 \u05de\u05e1\u05de\u05df \u05d0\u05ea \u05d4\u05de\u05e7\u05d5\u05dd \u05d4\u05e8\u05d0\u05e9\u05d5\u05df.`;
+  if(scrollToYou){ const y=document.getElementById("you"); if(y) tr.scrollTop = y.offsetTop - tr.clientHeight/2; }
+}
+document.getElementById("modeSeg").addEventListener("click",e=>{
+  const b=e.target.closest("button"); if(!b) return; MODE=b.dataset.mode;
+  document.querySelectorAll("#modeSeg button").forEach(x=>x.setAttribute("aria-pressed",x===b));
+  renderTrack(true);
+});
+document.getElementById("teamSeg").addEventListener("click",e=>{
+  const b=e.target.closest("button"); if(!b) return; CUR=b.dataset.team;
+  renderTeamSeg(); renderTrack(true);
+});
+
+/* ===== \u05e4\u05e8\u05d7\u05d9\u05dd \u05d5\u05e4\u05e8\u05d8\u05d9\u05dd ===== */
+(function(){const g=document.querySelector(".sunflower g");const p=document.getElementById("pt").innerHTML;let h="";for(let i=0;i<14;i++)h+=`<g transform="rotate(${i*360/14})">${p}</g>`;g.innerHTML=h;
+const s=document.getElementById("seeds");let c="";for(let i=0;i<60;i++){const a=i*2.39996,rr=3.9*Math.sqrt(i);c+=`<circle cx="${100+rr*Math.cos(a)}" cy="${100+rr*Math.sin(a)}" r="2.2"/>`;}s.innerHTML=c;})();
+document.getElementById("foot").textContent=`\u05e1\u05d4\u05f4\u05db \u05d7\u05d9\u05d3\u05d5\u05e9\u05d9\u05dd = \u05e7\u05e1\u05e7\u05d5 \u05e6\u05d3 \u05d2\u05f3 \u05d5\u05e7\u05e1\u05e7\u05d5 \u05de\u05e7\u05d9\u05e3, \u05d7\u05d9\u05d3\u05d5\u05e9\u05d9\u05dd \u05d1\u05e0\u05d9\u05db\u05d5\u05d9 \u05d1\u05d9\u05d8\u05d5\u05dc\u05d9\u05dd \u05de\u05ea\u05d7\u05d9\u05dc\u05d4 \u05d5\u05e1\u05de\u05d5\u05da \u05dc\u05ea\u05d7\u05d9\u05dc\u05d4 (\u05db\u05d5\u05dc\u05dc \u05e2\u05d3\u05db\u05d5\u05df \u05d3\u05d9\u05d2\u05d9\u05d8\u05dc\u05d9). \u05d9\u05de\u05d9 \u05e2\u05d1\u05d5\u05d3\u05d4: \u05e8\u05d0\u05e9\u05d5\u05df \u05e2\u05d3 \u05d7\u05de\u05d9\u05e9\u05d9.`;
+DATA.forEach(r=>{ TEAM_OF[r.n]=r.team; });
+function applyData(data, dataDate){
+  DATA=data; CONFIG.dataDate=dataDate; recalcDays(); build();
+  document.getElementById("names").innerHTML = ALL.map(r=>`<option value="${r.n}">`).join("");
+  document.getElementById("meta").textContent=`\u05d4\u05e0\u05ea\u05d5\u05e0\u05d9\u05dd \u05e0\u05db\u05d5\u05e0\u05d9\u05dd \u05e2\u05d3 ${fmtDate(CONFIG.dataDate)}. \u05d4\u05de\u05d1\u05e6\u05e2 \u05e8\u05e5 \u05de\u05be${fmtDate(CONFIG.start)} \u05e2\u05d3 ${fmtDate(CONFIG.end)}.`;
+  const again = YOU && ALL.find(x=>x.n===YOU.n);
+  if(again) show(again, true);
+  else { YOU=null; document.getElementById("me").style.display="none"; renderTeamSeg(); renderTrack(false); }
+}
+/* \u05e7\u05e8\u05d9\u05d0\u05ea \u05d3\u05d5\u05d7 \u05d4\u05d7\u05d9\u05d3\u05d5\u05e9\u05d9\u05dd: \u05e2\u05de\u05d5\u05d3\u05d4 A \u05e9\u05dd, B+E \u05e6\u05d3 \u05d2\u05f3, C+F \u05de\u05e7\u05d9\u05e3, H \u05e1\u05d4\u05f4\u05db */
+function parseRows(rows){
+  const h=headerRow(rows);
+  if(!/\u05e1\u05d4/.test(clean(rows[h][7]))) throw new Error("\u05de\u05d1\u05e0\u05d4 \u05d4\u05e2\u05de\u05d5\u05d3\u05d5\u05ea \u05d1\u05e7\u05d5\u05d1\u05e5 \u05e9\u05d5\u05e0\u05d4 \u05de\u05d4\u05e6\u05e4\u05d5\u05d9: \u05e2\u05de\u05d5\u05d3\u05d4 H \u05e6\u05e8\u05d9\u05db\u05d4 \u05dc\u05d4\u05d9\u05d5\u05ea \u05e1\u05d4\u05f4\u05db \u05d4\u05d7\u05d9\u05d3\u05d5\u05e9\u05d9\u05dd.");
+  const out={}, unassigned=[];
+  for(const r of rows.slice(h+1)){
+    const n=clean(r[0]); if(!n) continue;
+    if(n.startsWith("\u05e1\u05d4")||n==="\u05e9\u05dd \u05d4\u05d3\u05d5\u05d7") break;
+    const s=num(r[7]);
+    if(!TEAM_OF[n]){ if(s>=CONFIG.minShown) unassigned.push(`${n} (${s})`); continue; }
+    const e=out[n]||(out[n]={n,t:0,m:0,s:0,team:TEAM_OF[n]});
+    e.t+=num(r[1])+num(r[4]); e.m+=num(r[2])+num(r[5]); e.s+=s;
+  }
+  const data=Object.values(out);
+  if(data.length<3) throw new Error("\u05dc\u05d0 \u05e0\u05de\u05e6\u05d0\u05d5 \u05d1\u05e7\u05d5\u05d1\u05e5 \u05de\u05e1\u05e4\u05d9\u05e7 \u05e0\u05e6\u05d9\u05d2\u05d9\u05dd \u05de\u05d4\u05e6\u05d5\u05d5\u05ea\u05d9\u05dd. \u05db\u05d3\u05d0\u05d9 \u05dc\u05d1\u05d3\u05d5\u05e7 \u05e9\u05d6\u05d4 \u05d4\u05d3\u05d5\u05d7 \u05d4\u05e0\u05db\u05d5\u05df.");
+  let date=null;
+  for(const r of rows) for(const c of r){ const m=typeof c==="string" && c.match(/\u05ea\u05d0\u05e8\u05d9\u05da \u05ea\u05d5\u05e7\u05e3\s*-\s*(\d{1,2})\.(\d{1,2})\.(\d{4})/); if(m){ date=`${m[3]}-${m[2].padStart(2,"0")}-${m[1].padStart(2,"0")}`; break; } }
+  const cnt=k=>data.filter(r=>r.team===k).length;
+  const missing=Object.keys(TEAM_OF).filter(n=>!out[n]);
+  return {data, date, summary:`\u05e0\u05de\u05e6\u05d0\u05d5 ${cnt("digital")} \u05e0\u05e6\u05d9\u05d2\u05d9 \u05d3\u05d9\u05d2\u05d9\u05d8\u05dc \u05d5\u05be${cnt("call")} \u05e0\u05e6\u05d9\u05d2\u05d9 \u05de\u05d5\u05e7\u05d3.`
+    + (unassigned.length?` \u05dc\u05d0 \u05de\u05e9\u05d5\u05d9\u05db\u05d9\u05dd \u05dc\u05e6\u05d5\u05d5\u05ea \u05d5\u05dc\u05db\u05df \u05dc\u05d0 \u05d9\u05d5\u05e6\u05d2\u05d5: ${unassigned.join(", ")}.`:"")
+    + (missing.length?` \u05dc\u05d0 \u05de\u05d5\u05e4\u05d9\u05e2\u05d9\u05dd \u05d1\u05e7\u05d5\u05d1\u05e5: ${missing.join(", ")}.`:"")};
+}
+
+/* ===== \u05e2\u05d3\u05db\u05d5\u05df \u05d9\u05d5\u05de\u05d9 \u05de\u05e7\u05d5\u05d1\u05e5 ===== */
+const $ = id => document.getElementById(id);
+function loadXLSX(){ return window.XLSX ? Promise.resolve() : new Promise((ok,bad)=>{ const s=document.createElement("script"); s.src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js"; s.onload=ok; s.onerror=()=>bad(new Error("\u05dc\u05d0 \u05d4\u05e6\u05dc\u05d7\u05e0\u05d5 \u05dc\u05d8\u05e2\u05d5\u05df \u05d0\u05ea \u05e7\u05d5\u05e8\u05d0 \u05d4\u05d0\u05e7\u05e1\u05dc. \u05db\u05d3\u05d0\u05d9 \u05dc\u05e8\u05e2\u05e0\u05df \u05d0\u05ea \u05d4\u05d3\u05e3 \u05d5\u05dc\u05e0\u05e1\u05d5\u05ea \u05e9\u05d5\u05d1.")); document.head.appendChild(s); }); }
+const num = v => typeof v==="number" ? v : (parseFloat(v)||0);
+const clean = v => typeof v==="string" ? v.replace(/\s+/g," ").trim() : "";
+function headerRow(rows){ const i=rows.findIndex(r=>clean(r[0])==="\u05de\u05e9\u05ea\u05de\u05e9 \u05de\u05e9\u05d5\u05d9\u05da \u05e4\u05d5\u05dc\u05d9\u05e1\u05d4"); if(i<0) throw new Error("\u05dc\u05d0 \u05de\u05e6\u05d0\u05e0\u05d5 \u05d1\u05e7\u05d5\u05d1\u05e5 \u05d0\u05ea \u05e9\u05d5\u05e8\u05ea \u05d4\u05db\u05d5\u05ea\u05e8\u05ea \u201e\u05de\u05e9\u05ea\u05de\u05e9 \u05de\u05e9\u05d5\u05d9\u05da \u05e4\u05d5\u05dc\u05d9\u05e1\u05d4\u201c. \u05db\u05d3\u05d0\u05d9 \u05dc\u05d1\u05d3\u05d5\u05e7 \u05e9\u05d6\u05d4 \u05d4\u05d3\u05d5\u05d7 \u05d4\u05e0\u05db\u05d5\u05df."); return i; }
+function yesterday(){ const d=new Date(); d.setDate(d.getDate()-1); return iso(d); }
+
+/* \u05d1\u05d5\u05e0\u05d4 \u05de\u05d7\u05d3\u05e9 \u05d0\u05ea \u05d4\u05d3\u05e3 \u05db\u05d5\u05dc\u05d5 \u05e2\u05dd \u05d4\u05e0\u05ea\u05d5\u05e0\u05d9\u05dd \u05d1\u05ea\u05d5\u05db\u05d5, \u05db\u05da \u05e9\u05d4\u05d5\u05d0 \u05e2\u05d5\u05d1\u05d3 \u05d1\u05dc\u05d9 \u05e9\u05d5\u05dd \u05d7\u05d9\u05d1\u05d5\u05e8 \u05dc\u05e0\u05ea\u05d5\u05e0\u05d9\u05dd \u05d7\u05d9\u05e6\u05d5\u05e0\u05d9\u05d9\u05dd */
+const pureData = data => data.map(({n,t,m,s,team})=>team===undefined?{n,t,m,s}:{n,t,m,s,team});
+/* \u05db\u05dc \u05d4\u05ea\u05d5\u05d5\u05d9\u05dd \u05e9\u05d0\u05d9\u05e0\u05dd ASCII \u05e0\u05db\u05ea\u05d1\u05d9\u05dd \u05db\u05e7\u05d5\u05d3\u05d9\u05dd, \u05db\u05da \u05e9\u05d4\u05e7\u05d5\u05d1\u05e5 \u05e0\u05e7\u05e8\u05d0 \u05e0\u05db\u05d5\u05df \u05d1\u05db\u05dc \u05de\u05d7\u05e9\u05d1 \u05d5\u05d1\u05db\u05dc \u05e7\u05d9\u05d3\u05d5\u05d3 */
+const hexCP = c => c.codePointAt(0).toString(16).toUpperCase();
+const asciiHTML = t => t.replace(/[^\x00-\x7F]/gu, c=>"&#x"+hexCP(c)+";");
+const asciiJS = t => t.replace(/[^\x00-\x7F]/g, c=>"\\u"+c.charCodeAt(0).toString(16).padStart(4,"0"));
+const asciiCSS = t => t.replace(/[^\x00-\x7F]/gu, c=>"\\"+hexCP(c)+" ");
+function fallbackHTML(data, dataDate){
+  const min = typeof MIN_SALES!=="undefined" ? MIN_SALES : CONFIG.minShown;
+  const esc = t=>String(t).replace(/[&<>"]/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));
+  const groups = CONFIG.teams ? Object.entries(CONFIG.teams).map(([k,t])=>[t.label, data.filter(r=>r.team===k)]) : [["", data]];
+  const tables = groups.map(([label,rows])=>{
+    const list=rows.filter(r=>r.s>=min).sort((a,b)=>b.s-a.s);
+    return `${label?`<h3>${esc(label)}</h3>`:""}<table><tr><th>#</th><th>\u05e9\u05dd</th><th>\u05e1\u05d4\u05f4\u05db</th></tr>${list.map((r,i)=>`<tr><td>${i+1}</td><td>${esc(r.n)}</td><td>${r.s}</td></tr>`).join("")}</table>`;
+  }).join("");
+  const d=dataDate.split("-");
+  return `<div id="nojs"><p><strong>\u05d4\u05d3\u05e3 \u05dc\u05d0 \u05e0\u05d8\u05e2\u05df \u05d1\u05de\u05dc\u05d5\u05d0\u05d5.</strong> \u05db\u05e0\u05e8\u05d0\u05d4 \u05e9\u05d4\u05e7\u05d5\u05d1\u05e5 \u05e0\u05e4\u05ea\u05d7 \u05d1\u05ea\u05e6\u05d5\u05d2\u05d4 \u05de\u05e7\u05d3\u05d9\u05de\u05d4 (\u05d1\u05de\u05d9\u05d9\u05dc, \u05d1\u05d5\u05d5\u05d0\u05d8\u05e1\u05d0\u05e4 \u05d0\u05d5 \u05d1\u05d8\u05dc\u05e4\u05d5\u05df) \u05e9\u05dc\u05d0 \u05de\u05e8\u05d9\u05e6\u05d4 \u05d0\u05ea \u05d4\u05d3\u05e3. \u05db\u05d3\u05d9 \u05dc\u05e8\u05d0\u05d5\u05ea \u05d0\u05ea \u05d4\u05d3\u05e3 \u05d4\u05de\u05dc\u05d0, \u05e9\u05d5\u05de\u05e8\u05d9\u05dd \u05d0\u05ea \u05d4\u05e7\u05d5\u05d1\u05e5 \u05d1\u05de\u05d7\u05e9\u05d1 \u05d5\u05e4\u05d5\u05ea\u05d7\u05d9\u05dd \u05d0\u05d5\u05ea\u05d5 \u05d1\u05dc\u05d7\u05d9\u05e6\u05d4 \u05db\u05e4\u05d5\u05dc\u05d4 \u05d1\u05beChrome \u05d0\u05d5 \u05d1\u05beEdge.</p><p>\u05d1\u05d9\u05e0\u05ea\u05d9\u05d9\u05dd, \u05d6\u05d5 \u05d8\u05d1\u05dc\u05ea \u05d4\u05de\u05e6\u05d1 \u05e0\u05db\u05d5\u05df \u05dc\u05be${+d[2]}.${+d[1]}.${d[0]}:</p>${tables}</div>`;
+}
+function buildDocument(data, dataDate){
+  const json = JSON.stringify(pureData(data)).replace(/</g,"\\u003c");
+  const script = SRC.script
+    .replace(/^let DATA = .*;$/m, ()=>"let DATA = "+json+";")
+    .replace(/dataDate: "\d{4}-\d{2}-\d{2}"/, `dataDate: "${dataDate}"`);
+  return `<!DOCTYPE html>
+<html lang="he" dir="rtl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>${asciiHTML(SRC.title)}</title>
+<style>${asciiCSS(SRC.style)}</style>${SRC.lib?`\n<scr${""}ipt id="xlsxlib">${asciiJS(SRC.lib)}</scr${""}ipt>`:""}
+</head>
+<body>
+${asciiHTML(fallbackHTML(data, dataDate))}
+${asciiHTML(SRC.wrap)}
+
+<scr${""}ipt>${asciiJS(script)}</scr${""}ipt>
+</body>
+</html>
+`;
+}
+
+function setupAdmin(art){
+  $("admin").hidden=false;
+  const btn=$("upBtn"), say=t=>{$("upMsg").textContent=t;};
+  let parsed=null;
+  $("upDate").value=yesterday();
+  $("upFile").addEventListener("change", e=>{ const f=e.target.files[0]; if(f) handleFile(f); });
+  let depth=0; const drop=$("drop");
+  const isFiles=e=>e.dataTransfer && [...e.dataTransfer.types].includes("Files");
+  const endDrag=()=>{ depth=0; document.body.classList.remove("dragging"); drop.classList.remove("over"); };
+  window.addEventListener("dragenter", e=>{ if(!isFiles(e)) return; depth++; document.body.classList.add("dragging"); drop.classList.add("over"); });
+  window.addEventListener("dragleave", e=>{ if(!isFiles(e)) return; if(--depth<=0) endDrag(); });
+  window.addEventListener("dragover", e=>{ if(isFiles(e)) e.preventDefault(); });
+  window.addEventListener("drop", e=>{ if(!isFiles(e)) return; e.preventDefault(); endDrag(); const f=e.dataTransfer.files[0]; if(f){ handleFile(f); $("admin").scrollIntoView({block:"center"}); } });
+  async function handleFile(f){
+    parsed=null; btn.disabled=true; $("dropName").textContent=f.name;
+    if(!/\.xlsx?$/i.test(f.name)){ say("\u05e6\u05e8\u05d9\u05da \u05e7\u05d5\u05d1\u05e5 \u05d0\u05e7\u05e1\u05dc (xlsx). \u05d4\u05e7\u05d5\u05d1\u05e5 \u05d4\u05d6\u05d4 \u05dc\u05d0 \u05e0\u05d8\u05e2\u05df."); return; }
+    say("\u05e7\u05d5\u05e8\u05d0 \u05d0\u05ea \u05d4\u05e7\u05d5\u05d1\u05e5\u2026");
+    try{
+      await loadXLSX();
+      const wb=XLSX.read(await f.arrayBuffer());
+      const rows=XLSX.utils.sheet_to_json(wb.Sheets[wb.SheetNames[0]],{header:1,defval:null});
+      const res=parseRows(rows);
+      if(res.date) $("upDate").value=res.date;
+      parsed={data:res.data,fileName:f.name};
+      say(res.summary+" \u05dc\u05d1\u05d3\u05d5\u05e7 \u05d0\u05ea \u05d4\u05ea\u05d0\u05e8\u05d9\u05da \u05d5\u05dc\u05dc\u05d7\u05d5\u05e5 \u201e\u05dc\u05e2\u05d3\u05db\u05df \u05d0\u05ea \u05d4\u05d3\u05e3\u201c.");
+      btn.disabled=false;
+    }catch(err){ say(err.message||"\u05dc\u05d0 \u05d4\u05e6\u05dc\u05d7\u05e0\u05d5 \u05dc\u05e7\u05e8\u05d5\u05d0 \u05d0\u05ea \u05d4\u05e7\u05d5\u05d1\u05e5."); }
+  }
+  btn.addEventListener("click", async ()=>{
+    if(!parsed) return;
+    const date=$("upDate").value; if(!date){ say("\u05e6\u05e8\u05d9\u05da \u05dc\u05d1\u05d7\u05d5\u05e8 \u05e2\u05d3 \u05d0\u05d9\u05d6\u05d4 \u05ea\u05d0\u05e8\u05d9\u05da \u05d4\u05e0\u05ea\u05d5\u05e0\u05d9\u05dd \u05e0\u05db\u05d5\u05e0\u05d9\u05dd."); return; }
+    if(!art){
+      localApply(parsed.data, date);
+      parsed=null; $("upFile").value=""; $("dropName").textContent="\u05d2\u05d5\u05e8\u05e8\u05d9\u05dd \u05dc\u05db\u05d0\u05df \u05d0\u05ea \u05e7\u05d5\u05d1\u05e5 \u05d4\u05d0\u05e7\u05e1\u05dc"; btn.disabled=true;
+      say("\u05d4\u05e0\u05ea\u05d5\u05e0\u05d9\u05dd \u05e2\u05d5\u05d3\u05db\u05e0\u05d5. \u05d4\u05dd \u05e0\u05e9\u05de\u05e8\u05d9\u05dd \u05d1\u05d3\u05e4\u05d3\u05e4\u05df \u05d4\u05d6\u05d4, \u05d5\u05d0\u05e4\u05e9\u05e8 \u05dc\u05d4\u05d5\u05e8\u05d9\u05d3 \u05e2\u05d5\u05ea\u05e7 \u05e9\u05dc \u05d4\u05d3\u05e3 \u05e2\u05dd \u05d4\u05e0\u05ea\u05d5\u05e0\u05d9\u05dd \u05db\u05d3\u05d9 \u05dc\u05e9\u05dc\u05d5\u05d7 \u05d4\u05dc\u05d0\u05d4.");
+      return;
+    }
+    btn.disabled=true; say("\u05e9\u05d5\u05de\u05e8 \u05d0\u05ea \u05d4\u05d3\u05e3 \u05e2\u05dd \u05d4\u05e0\u05ea\u05d5\u05e0\u05d9\u05dd \u05d4\u05d7\u05d3\u05e9\u05d9\u05dd\u2026");
+    try{
+      await art.save(parsed.data, date); applyData(JSON.parse(JSON.stringify(parsed.data)), date); parsed=null; $("upFile").value="";
+      say("הנתונים נשמרו. כל מי שנכנס לאתר רואה אותם עכשיו.");
+    }catch(err){
+      const c=err&&err.code;
+      if(c==="conflict") say("\u05de\u05d9\u05e9\u05d4\u05d5 \u05d0\u05d7\u05e8 \u05e2\u05d3\u05db\u05df \u05d0\u05ea \u05d4\u05d3\u05e3 \u05d1\u05d0\u05d5\u05ea\u05d5 \u05e8\u05d2\u05e2. \u05d4\u05d3\u05e3 \u05e0\u05d8\u05e2\u05df \u05de\u05d7\u05d3\u05e9, \u05d5\u05d0\u05e4\u05e9\u05e8 \u05dc\u05d8\u05e2\u05d5\u05df \u05d0\u05ea \u05d4\u05e7\u05d5\u05d1\u05e5 \u05e9\u05d5\u05d1.");
+      else if(c==="not_writer"||c==="not_granted"){ say("\u05d0\u05d9\u05df \u05dc\u05da \u05d4\u05e8\u05e9\u05d0\u05d4 \u05dc\u05e2\u05d3\u05db\u05df \u05d0\u05ea \u05d4\u05d3\u05e3 \u05d4\u05d6\u05d4."); $("admin").hidden=true; }
+      else { say(`\u05d4\u05e2\u05d3\u05db\u05d5\u05df \u05dc\u05d0 \u05e0\u05e9\u05de\u05e8 (${c||"\u05e9\u05d2\u05d9\u05d0\u05d4"}). \u05d0\u05e4\u05e9\u05e8 \u05dc\u05e0\u05e1\u05d5\u05ea \u05e9\u05d5\u05d1.`); btn.disabled=false; }
+    }
+  });
+}
+
+/* \u05d4\u05d5\u05e8\u05d3\u05ea \u05e2\u05d5\u05ea\u05e7 \u05e9\u05dc \u05d4\u05d3\u05e3 \u05e9\u05e2\u05d5\u05d1\u05d3 \u05d1\u05dc\u05d9 \u05d0\u05d9\u05e0\u05d8\u05e8\u05e0\u05d8 */
+function setupOffline(dl){
+  const b=$("offlineBtn"); b.hidden=false;
+  b.addEventListener("click", async ()=>{
+    const d=CONFIG.dataDate.split("-");
+    try{ await dl.save({filename:`${FILE_NAME}-${d[2]}-${d[1]}.html`, data:buildDocument(DATA, CONFIG.dataDate)}); }
+    catch(err){ if(err && err.code!=="declined") $("offlineMsg").textContent="\u05d4\u05d4\u05d5\u05e8\u05d3\u05d4 \u05dc\u05d0 \u05d4\u05e6\u05dc\u05d9\u05d7\u05d4 \u05db\u05e8\u05d2\u05e2. \u05d0\u05e4\u05e9\u05e8 \u05dc\u05e0\u05e1\u05d5\u05ea \u05e9\u05d5\u05d1 \u05d1\u05e2\u05d5\u05d3 \u05e8\u05d2\u05e2."; }
+  });
+}
+
+/* ===== \u05de\u05e6\u05d1 \u05e7\u05d5\u05d1\u05e5 \u05e2\u05e6\u05de\u05d0\u05d9 (\u05e0\u05e4\u05ea\u05d7 \u05de\u05d4\u05de\u05d7\u05e9\u05d1, \u05d1\u05dc\u05d9 Claude) ===== */
+const FILE_NAME = "race-renewals";
+const LS_KEY = "race:" + FILE_NAME;
+function localApply(data, date){
+  applyData(JSON.parse(JSON.stringify(data)), date);
+  try{ localStorage.setItem(LS_KEY, JSON.stringify({data:pureData(data), dataDate:date})); }catch(e){}
+}
+function setupStandalone(){
+  try{ const saved=JSON.parse(localStorage.getItem(LS_KEY)||"null"); if(saved && Array.isArray(saved.data) && saved.data.length && saved.dataDate && saved.dataDate>=CONFIG.dataDate) applyData(saved.data, saved.dataDate); }catch(e){}
+  setupAdmin(null);
+  $("admin").querySelector("p").textContent="\u05d2\u05d5\u05e8\u05e8\u05d9\u05dd \u05dc\u05d3\u05e3 \u05d0\u05ea \u05e7\u05d5\u05d1\u05e5 \u05d4\u05d0\u05e7\u05e1\u05dc, \u05d0\u05d5 \u05dc\u05d5\u05d7\u05e6\u05d9\u05dd \u05e2\u05dc \u05d4\u05de\u05e1\u05d2\u05e8\u05ea \u05d5\u05d1\u05d5\u05d7\u05e8\u05d9\u05dd \u05e7\u05d5\u05d1\u05e5. \u05d1\u05d5\u05d3\u05e7\u05d9\u05dd \u05d0\u05ea \u05d4\u05ea\u05d0\u05e8\u05d9\u05da \u05d5\u05dc\u05d5\u05d7\u05e6\u05d9\u05dd \u201e\u05dc\u05e2\u05d3\u05db\u05df \u05d0\u05ea \u05d4\u05d3\u05e3\u201c. \u05d4\u05e0\u05ea\u05d5\u05e0\u05d9\u05dd \u05e0\u05e9\u05de\u05e8\u05d9\u05dd \u05d1\u05d3\u05e4\u05d3\u05e4\u05df \u05d4\u05d6\u05d4.";
+  const b=$("offlineBtn"); b.hidden=false; b.textContent="\u05dc\u05d4\u05d5\u05e8\u05d9\u05d3 \u05d0\u05ea \u05d4\u05d3\u05e3 \u05e2\u05dd \u05d4\u05e0\u05ea\u05d5\u05e0\u05d9\u05dd \u05d4\u05e0\u05d5\u05db\u05d7\u05d9\u05d9\u05dd";
+  b.addEventListener("click", ()=>{
+    const d=CONFIG.dataDate.split("-");
+    const a=document.createElement("a");
+    a.href=URL.createObjectURL(new Blob([buildDocument(DATA, CONFIG.dataDate)],{type:"text/html;charset=utf-8"}));
+    a.download=`${FILE_NAME}-${d[2]}-${d[1]}.html`; document.body.appendChild(a); a.click(); a.remove();
+  });
+  const go=document.createElement("button"); go.type="button"; go.className="offline"; go.textContent="\u05dc\u05d8\u05e2\u05d5\u05df \u05e7\u05d5\u05d1\u05e5 \u05d0\u05e7\u05e1\u05dc \u05d7\u05d3\u05e9";
+  go.addEventListener("click", ()=>$("admin").scrollIntoView({behavior:"smooth", block:"center"}));
+  $("meta").after(go);
+}
+applyData(DATA, CONFIG.dataDate);
+/* ===== חיבור לשרת: הנתונים נטענים מ־/api/data, והאדמין שומר אליו ===== */
+const BOARD = "renewals";
+(async ()=>{
+  try{
+    const r = await fetch("/api/data?board="+BOARD, {cache:"no-store"});
+    if(r.ok){ const j = await r.json(); if(j && Array.isArray(j.data) && j.data.length && j.dataDate) applyData(j.data, j.dataDate); }
+  }catch(e){ /* אין שרת או אין נתונים שמורים: נשארים עם הנתונים שבדף */ }
+  let pw = null; try{ pw = sessionStorage.getItem("race-admin"); }catch(e){}
+  if(!pw) return;
+  setupAdmin({ save: async (data, dataDate)=>{
+    const r = await fetch("/api/data", {method:"POST", headers:{"Content-Type":"application/json"}, body:JSON.stringify({board:BOARD, password:pw, data:pureData(data), dataDate})});
+    if(r.status===401){ try{ sessionStorage.removeItem("race-admin"); }catch(e){} throw Object.assign(new Error("unauthorized"),{code:"not_writer"}); }
+    if(!r.ok){ let m=""; try{ m=(await r.json()).error; }catch(e){} throw Object.assign(new Error(m||"error"),{code:m||("HTTP "+r.status)}); }
+  }});
+  const a = $("admin"); a.classList.add("top");
+  a.querySelector("p").textContent = "גוררים לכאן את קובץ האקסל של היום, בודקים את התאריך ולוחצים על עדכון. הנתונים נשמרים בשרת, וכל מי שנכנס לאתר רואה אותם מיד.";
+  document.querySelector(".hero").before(a);
+})();
+</script>
+</body>
+</html>

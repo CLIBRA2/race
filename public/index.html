@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>המירוץ לסוף השנה</title>
+<style>
+:root{
+  --sun:#FFC20E; --petal:#FFE07A; --surface:#FFF5CF; --seed:#3A2412; --seed-soft:#6B4A2C;
+  --leaf:#3F6B2A; --leaf-soft:#DCE8B8; --rust:#B5461F; --line:rgba(58,36,18,.3);
+  color-scheme:light; box-sizing:border-box;
+  padding-top:env(safe-area-inset-top,0px); padding-bottom:env(safe-area-inset-bottom,0px);
+}
+*,*::before,*::after{box-sizing:border-box}
+body{margin:0;background:var(--sun);color:var(--seed);font-family:Arial,"Segoe UI",Tahoma,"Arial Hebrew",sans-serif;font-size:18px;line-height:1.5}
+.wrap{max-width:1040px;margin:0 auto;padding:28px 20px 64px}
+h1{font-weight:800;line-height:.95;letter-spacing:-.02em;font-size:clamp(52px,10vw,118px);margin:0}
+.lead{margin:14px 0 0;max-width:46ch;font-size:19px}
+.hero{padding:24px 0 36px;border-bottom:3px solid var(--seed)}
+:focus-visible{outline:3px solid var(--leaf);outline-offset:3px}
+a{color:inherit}
+footer{margin-top:40px;font-size:15px}
+
+.gate{margin-top:36px;background:var(--surface);border:3px solid var(--seed);border-radius:6px;overflow:hidden}
+.lane{display:grid;grid-template-columns:64px 1fr auto;align-items:center;gap:12px;padding:0 20px;min-height:132px;color:var(--seed);text-decoration:none;position:relative}
+.lane+.lane{border-top:2px dashed var(--line)}
+.lane .no{font-weight:800;font-size:44px;text-align:center;opacity:.55}
+.lane .nm{font-weight:800;font-size:clamp(40px,7vw,76px);line-height:1;letter-spacing:-.02em}
+.lane small{display:block;font-size:17px;font-weight:400;letter-spacing:0;color:var(--seed-soft);margin-top:8px}
+.lane .horse{font-size:54px;line-height:1;transition:transform .5s cubic-bezier(.25,.8,.25,1)}
+.lane:hover,.lane:focus-visible{background:var(--petal)}
+.lane:hover .horse,.lane:focus-visible .horse{transform:translateX(-28px)}
+.lane::after{content:"";position:absolute;inset-block:0;inset-inline-end:118px;border-inline-start:2px dotted var(--seed-soft);opacity:.55}
+@media (max-width:720px){.lane{grid-template-columns:36px 1fr auto;padding:0 12px;min-height:108px}.lane .no{font-size:28px}.lane .horse{font-size:38px}.lane::after{inset-inline-end:76px}}
+@media (prefers-reduced-motion:reduce){.lane .horse{transition:none}}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header class="hero">
+    <h1>המירוץ לסוף השנה</h1>
+    <p class="lead">שלושה מסלולים, מירוץ אחד. בוחרים מחלקה, מכניסים שם ורואים איפה עומדים, כמה נשאר ומה הקצב שצריך.</p>
+  </header>
+  <nav class="gate" aria-label="בחירת מירוץ">
+    <a class="lane" href="/sales"><span class="no">1</span><span class="nm">מכירות<small>קסקו צד ג׳ וקסקו מקיף, פוליסות חדשות</small></span><span class="horse" aria-hidden="true">🐎</span></a>
+    <a class="lane" href="/renewals"><span class="no">2</span><span class="nm">חידושים<small>צוות דיגיטל וצוות מוקד</small></span><span class="horse" aria-hidden="true">🐎</span></a>
+    <a class="lane" href="/apartments"><span class="no">3</span><span class="nm">דירות<small>מבנה, תכולה ומבנה + תכולה</small></span><span class="horse" aria-hidden="true">🐎</span></a>
+  </nav>
+  <footer><a href="/admin">כניסת מנהלים</a></footer>
+</div>
+</body>
+</html>
