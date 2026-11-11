@@ -5,6 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>המירוץ לסוף השנה: עדכון נתונים</title>
 <style>
+@import url("https://fonts.googleapis.com/css2?family=Secular+One&display=swap");
 :root{
   --sun:#FFC20E; --petal:#FFE07A; --surface:#FFF5CF; --seed:#3A2412; --seed-soft:#6B4A2C;
   --leaf:#3F6B2A; --leaf-soft:#DCE8B8; --rust:#B5461F; --line:rgba(58,36,18,.3);
@@ -36,13 +37,30 @@ button:disabled{opacity:.5;cursor:wait}
 [hidden]{display:none!important}
 body{-webkit-text-size-adjust:100%}
 @media (max-width:720px){.wrap{padding-inline:16px}.card{padding:20px 16px;margin-top:28px}.pick{grid-template-columns:1fr}.pick a{padding:20px 12px}form button{width:100%}}
+
+/* ===== LIBRA superheroes theme ===== */
+:root{--sun:#FFC20E;--sun-deep:#E9A400;--petal:rgba(255,194,14,.16);--surface:#17140D;--seed:#FFF5CF;--seed-soft:#D9C58A;--leaf:#8BE04E;--leaf-soft:rgba(139,224,78,.14);--rust:#FF7A4D;--line:rgba(255,194,14,.24);--bg:#0B0A07;--on-bg:#FFF5CF;--ink:#0B0A07;
+  --metal:linear-gradient(180deg,#FFF3B8 0%,#FFD23A 28%,#B98600 52%,#FFE27A 74%,#9A7000 100%);color-scheme:dark}
+body{background:#0B0A07 radial-gradient(80% 560px at 50% 0,rgba(255,194,14,.3),transparent 70%) no-repeat;color:var(--on-bg)}
+.metal{background:var(--metal);-webkit-background-clip:text;background-clip:text;color:transparent}
+h1,.display{font-family:"Secular One",Arial,"Segoe UI",Tahoma,"Arial Hebrew",sans-serif;font-weight:400;letter-spacing:0;line-height:1}
+.kicker{margin:0 0 8px;font-weight:800;letter-spacing:.16em;color:var(--sun);font-size:15px}
+.hero{border-bottom-color:var(--sun)}
+a{color:var(--sun)}
+.card{border-color:var(--sun);background:linear-gradient(180deg,#221D12,#17140D)}
+input{background:#221D12;color:var(--on-bg);border-color:var(--sun)}
+button{background:var(--metal);color:var(--ink);border-color:#FFF1B0;box-shadow:0 4px 0 #5E4500}
+.out{background:transparent;color:var(--on-bg);border-color:var(--line);box-shadow:none}
+.pick a{color:var(--ink);background:var(--metal);border-color:#FFF1B0}
+.pick a:hover{background:var(--sun)}
 </style>
 </head>
 <body>
 <div class="wrap">
   <header class="hero">
     <p style="margin:0 0 8px"><a href="/">→ כל המירוצים</a></p>
-    <h1>עדכון נתונים</h1>
+    <p class="kicker">LIBRA גיבורי על</p>
+    <h1 class="metal">עדכון נתונים</h1>
     <p class="lead">כניסה למנהלים בלבד. אחרי הכניסה בוחרים מירוץ וגוררים אליו את קובץ האקסל של היום.</p>
   </header>
   <section class="card" id="login">
